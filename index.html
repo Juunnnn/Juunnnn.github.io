@@ -5,321 +5,333 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Sungjun Lee — Hardware Design Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Sans+KR:wght@300;400;500&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,400;0,9..40,500;1,9..40,200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0d0d;
-    --surface: #141414;
-    --border: #222;
-    --border-light: #2a2a2a;
-    --text: #e8e8e8;
-    --text-muted: #888;
-    --text-dim: #444;
-    --accent: #c8ff00;
-    --accent-dim: rgba(200,255,0,0.06);
-    --accent-mid: rgba(200,255,0,0.15);
+    --bg: #f4f2ee;
+    --bg-alt: #eceae5;
+    --surface: #ffffff;
+    --border: #d8d4cc;
+    --border-light: #e5e2da;
+    --text: #111111;
+    --text-muted: #555550;
+    --text-dim: #999990;
     --mono: 'DM Mono', monospace;
     --sans: 'DM Sans', 'Noto Sans KR', sans-serif;
+    --display: 'Bebas Neue', sans-serif;
   }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.7;
     overflow-x: hidden;
   }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: 0.4;
-  }
   ::-webkit-scrollbar { width: 3px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--accent); }
-
-  .mono { font-family: var(--mono); }
-  .label {
-    font-family: var(--mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
+  ::-webkit-scrollbar-thumb { background: var(--text); }
 
   /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    border-bottom: 1px solid var(--border);
+    background: rgba(244,242,238,0.93);
     backdrop-filter: blur(12px);
-    background: rgba(13,13,13,0.88);
+    border-bottom: 1px solid var(--border);
   }
   nav .inner {
-    max-width: 1000px; margin: 0 auto; padding: 0 2rem;
+    max-width: 1080px; margin: 0 auto; padding: 0 2.5rem;
     display: flex; align-items: center; justify-content: space-between;
-    height: 52px;
+    height: 56px;
   }
-  .nav-logo { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; color: var(--accent); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-logo { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--text); font-weight: 500; }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
   .nav-links a {
     font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
-    color: var(--text-muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s;
+    color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.15s;
   }
-  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
   /* ── LAYOUT ── */
-  .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
-  section { padding: 6rem 0; border-top: 1px solid var(--border); }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
+  section { padding: 7rem 0; border-top: 1px solid var(--border); }
   .section-header {
     display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 3.5rem; flex-wrap: wrap; gap: 1rem;
+    margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
   }
-  .section-title { font-family: var(--mono); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 400; letter-spacing: -0.02em; }
-  .section-title span { color: var(--accent); }
-  .section-num { font-family: var(--mono); font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.1em; }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    font-weight: 400; letter-spacing: 0.05em; line-height: 1; color: var(--text);
+  }
+  .section-meta {
+    font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 0.2rem;
+  }
 
   /* ── HERO ── */
   #hero {
     min-height: 100vh; display: flex; align-items: center;
-    padding-top: 52px; position: relative; overflow: hidden;
+    padding-top: 56px; position: relative; overflow: hidden;
   }
-  #hero::after {
+  #hero::before {
     content: '';
     position: absolute; inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 48px 48px;
-    opacity: 0.3; pointer-events: none;
+    background-image: radial-gradient(circle, #c0bdb4 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.4; pointer-events: none;
   }
-  .hero-content { position: relative; z-index: 1; padding: 6rem 0; }
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: end; gap: 4rem;
+    width: 100%; padding: 7rem 0 5rem;
+  }
   .hero-eyebrow {
-    display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+    display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.5s ease 0.1s forwards;
   }
-  .hero-eyebrow-line { width: 32px; height: 1px; background: var(--accent); }
+  .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--text); border-radius: 50%; }
+  .hero-eyebrow-text { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
   .hero-name {
-    font-family: var(--mono);
-    font-size: clamp(3rem, 7vw, 5.5rem);
-    font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0.4rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards;
+    font-family: var(--display);
+    font-size: clamp(5.5rem, 13vw, 11rem);
+    font-weight: 400; line-height: 0.9; letter-spacing: 0.02em;
+    color: var(--text); margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.6s ease 0.25s forwards;
   }
-  .hero-name span { color: var(--accent); }
-  .hero-title {
+  .hero-name em { font-style: normal; color: var(--text-dim); }
+  .hero-tagline {
+    font-size: clamp(1rem, 1.8vw, 1.25rem); font-weight: 700;
+    color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    opacity: 0; animation: fadeUp 0.5s ease 0.4s forwards;
+  }
+  .hero-sub {
     font-family: 'Noto Sans KR', sans-serif;
-    font-size: clamp(0.95rem, 2.2vw, 1.2rem); font-weight: 300;
-    color: var(--text-muted); margin-bottom: 1rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.5s forwards;
+    font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.7;
+    opacity: 0; animation: fadeUp 0.5s ease 0.5s forwards;
   }
   .hero-quote {
-    font-family: var(--mono); font-size: 0.78rem; font-style: italic;
-    color: var(--text-dim); margin-bottom: 2.5rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.6s forwards;
-  }
-  .hero-desc {
-    max-width: 520px; font-size: 0.92rem; color: var(--text-muted);
-    line-height: 1.85; margin-bottom: 3rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.65s forwards;
+    font-family: var(--mono); font-size: 0.75rem; font-style: italic;
+    color: var(--text-dim); margin-bottom: 3rem;
+    padding-left: 1rem; border-left: 2px solid var(--border);
+    opacity: 0; animation: fadeUp 0.5s ease 0.55s forwards;
   }
   .hero-cta {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.6s ease 0.8s forwards;
+    display: flex; gap: 0.8rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.5s ease 0.7s forwards;
   }
   .btn {
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.12em;
-    text-transform: uppercase; padding: 0.75rem 1.8rem;
-    text-decoration: none; border: 1px solid; transition: all 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.85rem 2rem; text-decoration: none;
+    border: 1.5px solid; transition: all 0.18s; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 0.5rem;
   }
-  .btn-primary { background: var(--accent); color: #000; border-color: var(--accent); }
-  .btn-primary:hover { background: transparent; color: var(--accent); }
-  .btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border-light); }
-  .btn-outline:hover { color: var(--accent); border-color: var(--accent); }
-  .hero-deco {
-    position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
-    width: 360px; height: 360px; border: 1px solid var(--border-light); border-radius: 50%;
-    opacity: 0; animation: fadeIn 1s ease 1s forwards;
+  .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .btn-primary:hover { background: #333; border-color: #333; }
+  .btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border); }
+  .btn-outline:hover { color: var(--text); border-color: var(--text); background: var(--bg-alt); }
+
+  .hero-stats {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1.5px solid var(--border);
+    opacity: 0; animation: fadeIn 0.8s ease 0.9s forwards;
   }
-  .hero-deco::before { content: ''; position: absolute; inset: 24px; border: 1px solid var(--border); border-radius: 50%; }
-  .hero-deco::after {
-    content: ''; position: absolute; inset: 60px;
-    border: 1px dashed var(--accent-mid); border-radius: 50%;
-    animation: spin 20s linear infinite;
+  .hero-stat {
+    padding: 1.5rem 2rem; background: var(--surface);
+    border-bottom: 1px solid var(--border); text-align: right;
   }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat-num { font-family: var(--display); font-size: 2.6rem; line-height: 1; color: var(--text); margin-bottom: 0.2rem; }
+  .hero-stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
 
   /* ── ABOUT ── */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  .about-text p { font-size: 0.93rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.85; }
-  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-  .stat-item { background: var(--surface); padding: 1.5rem; }
-  .stat-num { font-family: var(--mono); font-size: 2rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; }
-  .stat-desc { font-size: 0.75rem; color: var(--text-muted); font-family: 'Noto Sans KR', sans-serif; font-weight: 300; line-height: 1.5; }
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5rem; align-items: start; }
+  .about-text p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.3rem; line-height: 1.9; }
+  .about-text strong { color: var(--text); font-weight: 700; }
+  .about-text .en {
+    font-size: 0.87rem; font-style: italic; color: var(--text-dim);
+    margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); line-height: 1.8;
+  }
+  .about-awards { display: flex; flex-direction: column; gap: 0; }
+  .award-item {
+    padding: 1.4rem 1.6rem; border: 1px solid var(--border); border-bottom: none;
+    background: var(--bg); display: flex; gap: 1rem; align-items: flex-start;
+  }
+  .award-item:last-child { border-bottom: 1px solid var(--border); }
+  .award-emoji { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+  .award-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
+  .award-meta { font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim); letter-spacing: 0.05em; line-height: 1.5; }
 
   /* ── SKILLS ── */
   .skills-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--border); border: 1.5px solid var(--border);
   }
-  .skill-category { background: var(--surface); padding: 1.8rem; }
+  .skill-category { background: var(--surface); padding: 2rem; }
   .skill-cat-title {
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem;
-    padding-bottom: 0.8rem; border-bottom: 1px solid var(--border-light);
+    font-family: var(--display); font-size: 1.25rem; letter-spacing: 0.06em;
+    color: var(--text); margin-bottom: 1.2rem;
+    padding-bottom: 0.75rem; border-bottom: 2px solid var(--text);
   }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .skill-tag {
-    font-family: var(--mono); font-size: 0.7rem; padding: 0.28rem 0.65rem;
-    background: var(--bg); border: 1px solid var(--border-light);
-    color: var(--text-muted); letter-spacing: 0.04em; transition: all 0.2s;
+    font-family: var(--mono); font-size: 0.7rem; padding: 0.3rem 0.7rem;
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text-muted); letter-spacing: 0.04em; transition: all 0.15s;
   }
-  .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+  .skill-tag:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
 
   /* ── EXPERIENCE ── */
-  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  #experience { background: var(--surface); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .exp-col-title {
+    font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.08em;
+    margin-bottom: 2.2rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--text);
+  }
   .timeline { position: relative; }
   .timeline::before {
     content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
-    width: 1px; background: linear-gradient(to bottom, var(--accent), var(--border));
+    width: 1.5px; background: linear-gradient(to bottom, var(--text), var(--border-light));
   }
-  .timeline-item { padding-left: 2rem; margin-bottom: 2.8rem; position: relative; }
+  .timeline-item { padding-left: 1.8rem; margin-bottom: 2.8rem; position: relative; }
   .timeline-item::before {
-    content: ''; position: absolute; left: -3px; top: 8px;
-    width: 7px; height: 7px; border: 1px solid var(--accent); background: var(--bg);
+    content: ''; position: absolute; left: -4px; top: 7px;
+    width: 9px; height: 9px; border: 2px solid var(--text); background: var(--surface);
   }
-  .timeline-period { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.35rem; }
-  .timeline-role { font-size: 0.97rem; font-weight: 500; margin-bottom: 0.15rem; }
+  .timeline-period { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; text-transform: uppercase; }
+  .timeline-role { font-size: 1rem; font-weight: 700; margin-bottom: 0.15rem; color: var(--text); }
   .timeline-org { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.7rem; }
-  .timeline-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.75; }
+  .timeline-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.75; }
   .timeline-gpa {
     display: inline-block; margin-top: 0.5rem;
-    font-family: var(--mono); font-size: 0.68rem;
-    padding: 0.2rem 0.6rem; border: 1px solid var(--border-light);
-    color: var(--accent);
-  }
-  .exp-col-title {
-    font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--text-dim);
-    margin-bottom: 2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border);
+    font-family: var(--mono); font-size: 0.67rem;
+    padding: 0.22rem 0.65rem; border: 1.5px solid var(--text);
+    color: var(--text); font-weight: 500;
   }
 
   /* ── PROJECTS ── */
-  .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-  .project-card {
-    background: var(--surface); padding: 0;
-    overflow: hidden; transition: background 0.2s;
-  }
+  .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1.5px solid var(--border); }
+  .project-card { background: var(--surface); overflow: hidden; }
   .project-header {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.6rem 2rem; cursor: pointer; gap: 1rem;
-    transition: background 0.2s;
+    padding: 1.8rem 2.2rem; cursor: pointer; gap: 1.5rem; transition: background 0.15s;
   }
-  .project-header:hover { background: var(--accent-dim); }
+  .project-header:hover { background: var(--bg-alt); }
   .project-header-left { flex: 1; }
-  .project-tag { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-  .project-name { font-size: 1.02rem; font-weight: 500; margin-bottom: 0.15rem; }
-  .project-name-ko { font-family: 'Noto Sans KR', sans-serif; font-size: 0.8rem; color: var(--text-muted); font-weight: 300; }
-  .project-header-right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+  .project-tag { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.45rem; }
+  .project-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.15rem; color: var(--text); }
+  .project-name-ko { font-family: 'Noto Sans KR', sans-serif; font-size: 0.82rem; color: var(--text-muted); }
+  .project-header-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; }
   .project-period { font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim); }
   .project-toggle {
-    font-family: var(--mono); font-size: 0.85rem; color: var(--text-dim);
-    transition: transform 0.3s, color 0.2s; user-select: none;
+    width: 30px; height: 30px; border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 1.1rem; color: var(--text-muted);
+    transition: all 0.25s; flex-shrink: 0; background: var(--bg);
   }
-  .project-card.open .project-toggle { transform: rotate(45deg); color: var(--accent); }
+  .project-card.open .project-toggle { transform: rotate(45deg); background: var(--text); color: var(--bg); border-color: var(--text); }
+  .project-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); }
+  .project-card.open .project-body { max-height: 1400px; }
+  .project-body-inner {
+    padding: 2.2rem; display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2.5rem; border-top: 1px solid var(--border); background: var(--bg);
+  }
 
-  .project-body {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-    border-top: 0px solid var(--border);
-  }
-  .project-card.open .project-body {
-    max-height: 1200px;
-    border-top: 1px solid var(--border);
-  }
-  .project-body-inner { padding: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-
-  /* 미디어 영역 */
-  .project-media { display: flex; flex-direction: column; gap: 0.75rem; }
+  .project-media { display: flex; flex-direction: column; gap: 0.8rem; }
   .media-slot {
     width: 100%; aspect-ratio: 16/9;
-    background: var(--bg); border: 1px dashed var(--border-light);
+    background: var(--bg-alt); border: 1.5px dashed var(--border);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 0.5rem; position: relative; overflow: hidden;
+    gap: 0.6rem; overflow: hidden;
   }
   .media-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .media-slot .placeholder-icon { font-size: 1.5rem; opacity: 0.3; }
-  .media-slot .placeholder-text {
-    font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim);
-    letter-spacing: 0.08em; text-align: center; padding: 0 1rem;
-  }
-  .yt-embed { width: 100%; aspect-ratio: 16/9; border: none; }
-  .media-caption { font-family: var(--mono); font-size: 0.63rem; color: var(--text-dim); letter-spacing: 0.06em; }
+  .media-slot .placeholder-icon { font-size: 1.6rem; opacity: 0.2; }
+  .media-slot .placeholder-text { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.06em; text-align: center; padding: 0 1.2rem; line-height: 1.6; }
+  .yt-embed { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+  .media-caption { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.05em; }
 
-  /* 프로젝트 텍스트 */
-  .project-info { display: flex; flex-direction: column; gap: 1.4rem; }
-  .project-desc-text { font-size: 0.86rem; color: var(--text-muted); line-height: 1.8; }
+  .project-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-award {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.85rem 1.1rem; background: var(--surface); border: 1.5px solid var(--text);
+  }
+  .award-icon2 { font-size: 0.95rem; }
+  .award-text2 { font-family: var(--mono); font-size: 0.68rem; color: var(--text); letter-spacing: 0.06em; font-weight: 500; }
+  .project-desc-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
   .project-bullets { list-style: none; }
   .project-bullets li {
-    font-size: 0.83rem; color: var(--text-muted); line-height: 1.7;
-    padding-left: 1rem; position: relative; margin-bottom: 0.5rem;
+    font-size: 0.86rem; color: var(--text-muted); line-height: 1.75;
+    padding-left: 1.1rem; position: relative; margin-bottom: 0.55rem;
   }
-  .project-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); font-family: var(--mono); }
-  .project-stack-wrap { }
-  .project-stack-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.6rem; }
+  .project-bullets li::before {
+    content: ''; position: absolute; left: 0; top: 0.65em;
+    width: 4px; height: 4px; background: var(--text); border-radius: 50%;
+  }
+  .project-stack-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.6rem; }
   .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .project-stack span {
-    font-family: var(--mono); font-size: 0.67rem; padding: 0.22rem 0.6rem;
-    border: 1px solid var(--border-light); color: var(--text-dim); letter-spacing: 0.04em;
+    font-family: var(--mono); font-size: 0.67rem; padding: 0.25rem 0.65rem;
+    border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
   }
-  .project-award {
-    display: flex; align-items: center; gap: 0.6rem;
-    padding: 0.7rem 1rem; background: rgba(200,255,0,0.05); border: 1px solid var(--accent-mid);
-  }
-  .award-icon { font-size: 0.9rem; }
-  .award-text { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.06em; }
 
   /* ── CONTACT ── */
-  #contact { border-bottom: 1px solid var(--border); }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-  .contact-tagline { font-family: var(--mono); font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 400; line-height: 1.55; margin-bottom: 1.5rem; }
-  .contact-tagline span { color: var(--accent); }
-  .contact-note { font-size: 0.87rem; color: var(--text-muted); line-height: 1.8; }
+  #contact { background: var(--text); color: var(--bg); border-top: none; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .contact-tagline {
+    font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.0; margin-bottom: 1.8rem; letter-spacing: 0.04em; color: var(--bg);
+  }
+  .contact-tagline em { font-style: normal; color: #666; }
+  .contact-note { font-size: 0.9rem; color: #888; line-height: 1.85; }
+  #contact .section-title { color: var(--bg); }
+  #contact .section-meta { color: #555; }
   .contact-links { display: flex; flex-direction: column; gap: 1px; }
   .contact-link-item {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 1.4rem; background: var(--surface);
-    border: 1px solid var(--border); text-decoration: none; transition: all 0.2s; border-bottom: none;
+    padding: 1.2rem 1.5rem; background: #1a1a1a;
+    border: 1px solid #2a2a2a; text-decoration: none; transition: all 0.15s; border-bottom: none;
   }
-  .contact-link-item:last-child { border-bottom: 1px solid var(--border); }
-  .contact-link-item:hover { background: var(--accent-dim); border-color: var(--accent); }
-  .contact-link-left { display: flex; align-items: center; gap: 1rem; }
-  .contact-link-platform { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); width: 64px; }
-  .contact-link-value { font-size: 0.86rem; color: var(--text-muted); }
-  .contact-link-arrow { font-family: var(--mono); color: var(--text-dim); font-size: 0.8rem; transition: all 0.2s; }
-  .contact-link-item:hover .contact-link-arrow { color: var(--accent); }
+  .contact-link-item:last-child { border-bottom: 1px solid #2a2a2a; }
+  .contact-link-item:hover { background: #222; border-color: #555; }
+  .contact-link-left { display: flex; align-items: center; gap: 1.2rem; }
+  .contact-link-platform { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: #555; width: 64px; }
+  .contact-link-value { font-size: 0.88rem; color: #ccc; }
+  .contact-link-arrow { font-family: var(--mono); color: #444; font-size: 0.85rem; transition: color 0.15s; }
+  .contact-link-item:hover .contact-link-arrow { color: #fff; }
 
   /* ── FOOTER ── */
+  .footer-wrap { background: var(--text); border-top: 1px solid #222; }
   footer {
-    padding: 2rem 0;
+    max-width: 1080px; margin: 0 auto; padding: 1.8rem 2.5rem;
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text-dim);
+    font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.08em; color: #444;
   }
 
   /* ── ANIMATIONS ── */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 720px) {
-    .about-grid, .contact-grid, .exp-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  @media (max-width: 780px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
+    .about-grid, .contact-grid, .exp-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
     .project-body-inner { grid-template-columns: 1fr; }
-    .hero-deco { display: none; }
     .nav-links { display: none; }
-    .about-stats { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -328,7 +340,7 @@
 <!-- NAV -->
 <nav>
   <div class="inner">
-    <span class="nav-logo">Sungjun Lee</span>
+    <span class="nav-logo">Sungjun Lee · HW Engineer</span>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -342,27 +354,43 @@
 <!-- HERO -->
 <section id="hero">
   <div class="container">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-line"></div>
-        <span class="label">Hardware Design Engineer · 성균관대학교</span>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-eyebrow">
+          <div class="hero-eyebrow-dot"></div>
+          <span class="hero-eyebrow-text">Hardware Design Engineer · SKKU Robotics Innovatory Lab</span>
+        </div>
+        <h1 class="hero-name">SUNG<br>JUN<br><em>LEE</em></h1>
+        <p class="hero-tagline">로봇 하드웨어 설계 엔지니어</p>
+        <p class="hero-sub">
+          인간형·족형 로봇 메커니즘 설계 / 구동계 통합 / PCB 설계<br>
+          Mechanism Design · Actuation · System Integration
+        </p>
+        <p class="hero-quote">"The Only Easy Day Was Yesterday."</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="Sungjun_Lee_Resume.pdf" download class="btn btn-outline">↓ Download CV</a>
+        </div>
       </div>
-      <h1 class="hero-name">Sungjun<span>.</span><br>Lee</h1>
-      <p class="hero-title">로봇 하드웨어 설계 엔지니어 / 인간형·족형 로봇 메커니즘</p>
-      <p class="hero-quote">"The Only Easy Day Was Yesterday."</p>
-      <p class="hero-desc">
-        다관절 로봇의 기구 설계 및 시스템 통합을 연구합니다.<br>
-        21-DoF 인간형 로봇 전신 설계, 구동계 통합, PCB 설계까지 —<br>
-        하드웨어 전 과정을 직접 다룹니다.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="Sungjun_Lee_Resume.pdf" download class="btn btn-outline">
-          ↓ Download CV
-        </a>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">21</div>
+          <div class="hero-stat-label">DoF Humanoid</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">4.33</div>
+          <div class="hero-stat-label">M.S. GPA / 4.5</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">5+</div>
+          <div class="hero-stat-label">Projects</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">🏆</div>
+          <div class="hero-stat-label">KRoC 2026 대상</div>
+        </div>
       </div>
     </div>
-    <div class="hero-deco"></div>
   </div>
 </section>
 
@@ -370,38 +398,43 @@
 <section id="about">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title"><span>01.</span> About Me</h2>
-      <span class="section-num">소개</span>
+      <h2 class="section-title">ABOUT ME</h2>
+      <div class="section-meta"><span>소개</span><span>01 / 05</span></div>
     </div>
     <div class="about-grid reveal">
       <div class="about-text">
-        <p>
-          성균관대학교 지능형로봇학과 석사과정 재학 중입니다. Robotics Innovatory Lab(지도교수: 최혁렬)에서 다관절 로봇의 기구 설계와 시스템 통합을 연구하고 있습니다.
-        </p>
-        <p>
-          21-DoF 성인 크기 인간형 로봇의 상체 11-DoF 전체 설계를 맡아 구조 최적화, 커스텀 PCB 설계, 전신 통합을 수행했습니다. 현재는 이족 보행 실험 및 텔레오퍼레이션 시스템 개발을 진행 중입니다.
-        </p>
-        <p style="font-style:italic; font-size: 0.84rem; color: var(--text-dim);">
-          M.S. student at Sungkyunkwan University (Intelligent Robotics). Specializing in mechanism design for humanoid & quadruped robots — from linkage design and actuator selection to PCB layout and full-system integration.
-        </p>
+        <p>성균관대학교 지능형로봇학과 <strong>석사과정</strong>에 재학 중입니다. Robotics Innovatory Lab(지도교수: 최혁렬)에서 <strong>다관절 로봇의 기구 설계와 시스템 통합</strong>을 연구하고 있습니다.</p>
+        <p><strong>21-DoF 성인 크기 인간형 로봇</strong>의 상체 11-DoF 전체 설계를 주도하였으며, 구조 최적화를 통한 경량화, 48V 전원 분배 커스텀 PCB 설계, 하체와의 전신 통합을 수행했습니다.</p>
+        <p>현재는 MPC, 강화학습, 모방학습을 활용한 이족보행 실험과 XR 기반 텔레오퍼레이션 시스템 개발을 진행 중입니다.</p>
+        <p class="en">M.S. student at Sungkyunkwan University. Specializing in mechanism design for humanoid & quadruped robots — from linkage design and actuator selection to custom PCB layout and full-system integration.</p>
       </div>
-      <div>
-        <div class="about-stats">
-          <div class="stat-item">
-            <div class="stat-num">21</div>
-            <div class="stat-desc">DoF 인간형 로봇<br>Humanoid DoF</div>
+      <div class="about-awards">
+        <div class="award-item">
+          <span class="award-emoji">🏆</span>
+          <div>
+            <div class="award-title">First Prize — KRoC 2026</div>
+            <div class="award-meta">대상 (KIRIA 회장상) · RED Show · Pyeongchang, Feb. 2026</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-num">4.33</div>
-            <div class="stat-desc">석사 GPA / 4.5<br>Master's GPA</div>
+        </div>
+        <div class="award-item">
+          <span class="award-emoji">📄</span>
+          <div>
+            <div class="award-title">KRoC 2026 논문 발표</div>
+            <div class="award-meta">Optimal Design of a 9-DoF Upper Body for a Humanoid Robot · First Author · Poster</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-num">5+</div>
-            <div class="stat-desc">완료 프로젝트<br>Projects</div>
+        </div>
+        <div class="award-item">
+          <span class="award-emoji">🎓</span>
+          <div>
+            <div class="award-title">BK21 Graduate Research Assistant</div>
+            <div class="award-meta">Brain Korea 21 FOUR Program · Jan. 2026 — Present</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-num">🏆</div>
-            <div class="stat-desc">KRoC 2026 대상<br>President's Award</div>
+        </div>
+        <div class="award-item">
+          <span class="award-emoji">🤖</span>
+          <div>
+            <div class="award-title">Undergraduate Research Mentor</div>
+            <div class="award-meta">손목·손 메커니즘 설계/제어 지도 · Jan. 2026 — Present</div>
           </div>
         </div>
       </div>
@@ -413,68 +446,56 @@
 <section id="skills">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title"><span>02.</span> Skills</h2>
-      <span class="section-num">기술 스택</span>
+      <h2 class="section-title">SKILLS</h2>
+      <div class="section-meta"><span>기술 스택</span><span>02 / 05</span></div>
     </div>
     <div class="skills-grid reveal">
       <div class="skill-category">
-        <div class="skill-cat-title">CAD · 기구 설계</div>
+        <div class="skill-cat-title">CAD · 설계</div>
         <div class="skill-tags">
-          <span class="skill-tag">SolidWorks</span>
-          <span class="skill-tag">Autodesk Inventor</span>
-          <span class="skill-tag">Nastran (FEA)</span>
-          <span class="skill-tag">Linkage Design</span>
-          <span class="skill-tag">Structural Optimization</span>
+          <span class="skill-tag">SolidWorks</span><span class="skill-tag">Autodesk Inventor</span>
+          <span class="skill-tag">Nastran (FEA)</span><span class="skill-tag">Linkage Design</span>
+          <span class="skill-tag">Structural Optimization</span><span class="skill-tag">GD&T</span>
         </div>
       </div>
       <div class="skill-category">
         <div class="skill-cat-title">Actuation · 구동계</div>
         <div class="skill-tags">
-          <span class="skill-tag">BLDC Motor</span>
-          <span class="skill-tag">Planetary Gear</span>
-          <span class="skill-tag">Tendon Drive</span>
-          <span class="skill-tag">Actuator Pack Design</span>
-          <span class="skill-tag">Torque Analysis</span>
+          <span class="skill-tag">BLDC Motor</span><span class="skill-tag">Planetary Gear</span>
+          <span class="skill-tag">Tendon Drive</span><span class="skill-tag">Actuator Pack Design</span>
+          <span class="skill-tag">Torque Analysis</span><span class="skill-tag">Bezier Gait</span>
         </div>
       </div>
       <div class="skill-category">
         <div class="skill-cat-title">Electronics · 전장</div>
         <div class="skill-tags">
-          <span class="skill-tag">Custom PCB Design</span>
-          <span class="skill-tag">Power Distribution (48V)</span>
-          <span class="skill-tag">F/T Sensor</span>
-          <span class="skill-tag">IMU</span>
-          <span class="skill-tag">Encoder</span>
+          <span class="skill-tag">Custom PCB Design</span><span class="skill-tag">Power Dist. (48V)</span>
+          <span class="skill-tag">F/T Sensor</span><span class="skill-tag">IMU</span>
+          <span class="skill-tag">Encoder</span><span class="skill-tag">Arduino</span>
         </div>
       </div>
       <div class="skill-category">
         <div class="skill-cat-title">Software · 소프트웨어</div>
         <div class="skill-tags">
-          <span class="skill-tag">ROS (Noetic)</span>
-          <span class="skill-tag">URDF / Gazebo</span>
-          <span class="skill-tag">C / C++</span>
-          <span class="skill-tag">MATLAB</span>
-          <span class="skill-tag">Kalman Filter</span>
+          <span class="skill-tag">ROS (Noetic)</span><span class="skill-tag">URDF / Gazebo</span>
+          <span class="skill-tag">C / C++</span><span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">Kalman Filter</span><span class="skill-tag">Digital Twin</span>
         </div>
       </div>
       <div class="skill-category">
         <div class="skill-cat-title">Control · 제어</div>
         <div class="skill-tags">
-          <span class="skill-tag">MPC</span>
-          <span class="skill-tag">Reinforcement Learning</span>
-          <span class="skill-tag">Imitation Learning</span>
-          <span class="skill-tag">Bipedal Locomotion</span>
-          <span class="skill-tag">Teleoperation (XR)</span>
+          <span class="skill-tag">MPC</span><span class="skill-tag">Reinforcement Learning</span>
+          <span class="skill-tag">Imitation Learning</span><span class="skill-tag">Bipedal Locomotion</span>
+          <span class="skill-tag">XR Teleoperation</span>
         </div>
       </div>
       <div class="skill-category">
         <div class="skill-cat-title">Fabrication · 제작</div>
         <div class="skill-tags">
-          <span class="skill-tag">3D Printing</span>
-          <span class="skill-tag">CNC Machining</span>
-          <span class="skill-tag">System Integration</span>
-          <span class="skill-tag">DFM / DFA</span>
-          <span class="skill-tag">FMEA</span>
+          <span class="skill-tag">3D Printing</span><span class="skill-tag">CNC Machining</span>
+          <span class="skill-tag">System Integration</span><span class="skill-tag">DFM / DFA</span>
+          <span class="skill-tag">Tolerance Analysis</span>
         </div>
       </div>
     </div>
@@ -485,50 +506,40 @@
 <section id="experience">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title"><span>03.</span> Experience & Education</h2>
-      <span class="section-num">경력 / 학력</span>
+      <h2 class="section-title">EXPERIENCE</h2>
+      <div class="section-meta"><span>경력 / 학력</span><span>03 / 05</span></div>
     </div>
     <div class="exp-grid reveal">
-      <!-- 경력 -->
       <div>
-        <div class="exp-col-title">Experience · 경력</div>
+        <div class="exp-col-title">Work Experience · 경력</div>
         <div class="timeline">
           <div class="timeline-item">
             <div class="timeline-period">Mar. 2025 — Present</div>
-            <div class="timeline-role">Master Student · Hardware Design Engineer</div>
-            <div class="timeline-org">Robotics Innovatory Lab, SKKU · 성균관대학교</div>
-            <div class="timeline-desc">
-              21-DoF 성인 크기 인간형 로봇 개발 팀 리드 (2026). 상체 11-DoF 기구 설계, 커스텀 PCB 설계, 전신 통합 수행. 이족보행 실험 및 XR 텔레오퍼레이션 시스템 개발 진행 중.
-            </div>
+            <div class="timeline-role">Master Student · HW Design Engineer</div>
+            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
+            <div class="timeline-desc">21-DoF 인간형 로봇 개발 팀 리드 (2026~). 상체 11-DoF 기구 설계, 커스텀 PCB, 전신 통합. 이족보행 실험 및 XR 텔레오퍼레이션 개발 중.</div>
             <span class="timeline-gpa">GPA 4.33 / 4.5</span>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">Jan. 2026 — Present</div>
             <div class="timeline-role">Undergraduate Research Mentor</div>
             <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
-            <div class="timeline-desc">
-              인간형 로봇 손목·손 메커니즘 설계 및 제어에 관해 학부생 지도. 기계 설계, C++, 로봇 텔레오퍼레이션 기술 지도.
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Jun. 2023 — Oct. 2024</div>
-            <div class="timeline-role">Undergraduate Researcher</div>
-            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
-            <div class="timeline-desc">
-              소형 4족 로봇 개발 및 관성 모멘트 추정 방법론 연구.
-            </div>
+            <div class="timeline-desc">손목·손 메커니즘 설계 및 제어에 관해 학부생 지도. 기계 설계, C++, 텔레오퍼레이션 기술 멘토링.</div>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">Sep. 2025 — Dec. 2025</div>
             <div class="timeline-role">Graduate Teaching Assistant</div>
             <div class="timeline-org">School of Mechanical Engineering, SKKU</div>
-            <div class="timeline-desc">
-              진동 및 동역학 시스템 설계 실험실 TA. Arduino·LEGO EV3를 활용한 농구 로봇 개발 프로젝트 지도.
-            </div>
+            <div class="timeline-desc">진동·동역학 시스템 설계 실험 TA. Arduino·LEGO EV3 농구 로봇 개발 프로젝트 지도.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-period">Jun. 2023 — Oct. 2024</div>
+            <div class="timeline-role">Undergraduate Researcher</div>
+            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
+            <div class="timeline-desc">소형 4족 로봇 개발 및 관성 모멘트 추정 방법론 연구.</div>
           </div>
         </div>
       </div>
-      <!-- 학력 -->
       <div>
         <div class="exp-col-title">Education · 학력</div>
         <div class="timeline">
@@ -536,27 +547,21 @@
             <div class="timeline-period">Mar. 2025 — Present</div>
             <div class="timeline-role">M.S. in Intelligent Robotics</div>
             <div class="timeline-org">Sungkyunkwan University · 성균관대학교</div>
-            <div class="timeline-desc">
-              지능형로봇학과 석사과정. Robotics Innovatory Lab (지도교수: 최혁렬). 다관절 로봇 기구 설계 연구.
-            </div>
-            <span class="timeline-gpa">GPA 4.33 / 4.5 · 15 / 24 credits</span>
+            <div class="timeline-desc">지능형로봇학과 석사과정. Robotics Innovatory Lab (지도교수: 최혁렬). 다관절 로봇 기구 설계 연구.</div>
+            <span class="timeline-gpa">GPA 4.33 / 4.5 · 15 / 24 cr.</span>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">Feb. 2021 — Feb. 2025</div>
             <div class="timeline-role">B.S. in Mechanical Engineering</div>
             <div class="timeline-org">Sungkyunkwan University · 성균관대학교</div>
-            <div class="timeline-desc">
-              기계공학부 학사. 전체 GPA 4.0 / 4.5, 전공 GPA 4.0 / 4.5.
-            </div>
-            <span class="timeline-gpa">GPA 4.0 / 4.5 · 132 credits</span>
+            <div class="timeline-desc">기계공학부 학사. 전체 GPA 4.0 / 4.5, 전공 GPA 4.0 / 4.5.</div>
+            <span class="timeline-gpa">GPA 4.0 / 4.5 · 132 cr.</span>
           </div>
           <div class="timeline-item">
             <div class="timeline-period">Feb. 2026</div>
-            <div class="timeline-role">KRoC 2026 — First Author & Poster Presenter</div>
-            <div class="timeline-org">Korea Robotics Society Annual Conference · 평창</div>
-            <div class="timeline-desc">
-              "Optimal Design of a 9-DoF Upper Body for a Humanoid Robot" 발표. 인간형 로봇 상체 9-DoF 최적 설계 방법론 제안.
-            </div>
+            <div class="timeline-role">KRoC 2026 — 1st Author & Presenter</div>
+            <div class="timeline-org">Korea Robotics Society · 평창</div>
+            <div class="timeline-desc">"Optimal Design of a 9-DoF Upper Body for a Humanoid Robot" — 포스터 발표. 인간형 로봇 상체 최적 설계 방법론 제안.</div>
           </div>
         </div>
       </div>
@@ -568,264 +573,189 @@
 <section id="projects">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title"><span>04.</span> Projects</h2>
-      <span class="section-num">프로젝트 포트폴리오</span>
+      <h2 class="section-title">PROJECTS</h2>
+      <div class="section-meta"><span>포트폴리오</span><span>04 / 05</span></div>
     </div>
     <div class="projects-list reveal">
 
-      <!-- PROJECT 1: 21-DoF Humanoid -->
       <div class="project-card" id="proj-1">
         <div class="project-header" onclick="toggleProject('proj-1')">
           <div class="project-header-left">
-            <div class="project-tag">Humanoid Robot · 인간형 로봇 · Team Lead</div>
+            <div class="project-tag">Humanoid Robot · Team Lead (2026)</div>
             <div class="project-name">21-DoF Adult-Sized Humanoid Robot</div>
             <div class="project-name-ko">성인 크기 21자유도 인간형 로봇</div>
           </div>
           <div class="project-header-right">
             <span class="project-period">Mar. 2025 — Present</span>
-            <span class="project-toggle">+</span>
+            <div class="project-toggle">+</div>
           </div>
         </div>
         <div class="project-body">
           <div class="project-body-inner">
             <div class="project-media">
-              <!-- 사진 슬롯 1 -->
               <div class="media-slot">
-                <!-- 사진 추가 방법: <img src="images/humanoid_1.jpg" alt="Humanoid Robot"> -->
+                <!-- <img src="images/humanoid_1.jpg" alt="Humanoid Robot"> -->
                 <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">사진을 여기에 추가하세요<br>images/ 폴더에 이미지 넣고 src 수정</span>
+                <span class="placeholder-text">사진 추가 — images/humanoid_1.jpg</span>
               </div>
-              <span class="media-caption">// REPLACE WITH: &lt;img src="images/humanoid_1.jpg"&gt;</span>
-              <!-- 유튜브 슬롯 -->
+              <span class="media-caption">// &lt;img src="images/humanoid_1.jpg"&gt; 로 교체</span>
               <div class="media-slot">
-                <!-- 유튜브 추가 방법: 아래 주석 해제하고 VIDEO_ID 교체 -->
                 <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
                 <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">YouTube 영상 추가<br>VIDEO_ID를 실제 ID로 교체</span>
+                <span class="placeholder-text">YouTube 영상 — VIDEO_ID 교체</span>
               </div>
-              <span class="media-caption">// REPLACE WITH: YouTube embed iframe</span>
+              <span class="media-caption">// YouTube iframe으로 교체</span>
             </div>
             <div class="project-info">
               <div class="project-award">
-                <span class="award-icon">🏆</span>
-                <span class="award-text">KRoC 2026 — 대상 (KIRIA 회장상) · President's Award</span>
+                <span class="award-icon2">🏆</span>
+                <span class="award-text2">KRoC 2026 대상 (KIRIA 회장상) · RED Show</span>
               </div>
-              <div class="project-desc-text">
-                21-DoF 성인 크기 인간형 로봇 개발 프로젝트. 4-DoF 팔 × 2, 1-DoF 토르소, 2-DoF 목으로 구성된 상체 11-DoF를 설계하고, 10-DoF 하체와 통합하여 전신 시스템을 완성.
-              </div>
+              <div class="project-desc-text">21-DoF 성인 크기 인간형 로봇. 4-DoF 팔 ×2, 1-DoF 토르소, 2-DoF 목으로 구성된 상체 11-DoF 설계 주도. 10-DoF 하체와 통합하여 전신 시스템 완성.</div>
               <ul class="project-bullets">
-                <li>구조 최적화를 통한 경량화 설계 (상체 11-DoF)</li>
-                <li>48V 메인 전원을 다중 전압으로 분배하는 커스텀 PCB 설계</li>
-                <li>MPC, Reinforcement Learning, Imitation Learning을 활용한 이족보행 실험 진행 중</li>
-                <li>손목 관절 및 8-DoF 로봇 손 통합, XR 기반 텔레오퍼레이션 시스템 개발 계획</li>
+                <li>구조 최적화를 통한 상체 경량화 설계</li>
+                <li>48V → 다중 전압 분배 커스텀 PCB 설계</li>
+                <li>MPC / RL / Imitation Learning 이족보행 실험 진행 중</li>
+                <li>손목·8-DoF 로봇 손 통합 및 XR 텔레오퍼레이션 개발 계획</li>
               </ul>
-              <div class="project-stack-wrap">
-                <div class="project-stack-label">Stack</div>
-                <div class="project-stack">
-                  <span>SolidWorks</span><span>Custom PCB</span><span>ROS</span>
-                  <span>URDF</span><span>MPC</span><span>RL</span><span>48V Power Dist.</span>
-                </div>
-              </div>
+              <div><div class="project-stack-label">Stack</div>
+              <div class="project-stack"><span>SolidWorks</span><span>Custom PCB</span><span>ROS</span><span>URDF</span><span>MPC</span><span>RL</span><span>48V Power</span></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PROJECT 2: Force Feedback Leader Arm -->
       <div class="project-card" id="proj-2">
         <div class="project-header" onclick="toggleProject('proj-2')">
           <div class="project-header-left">
-            <div class="project-tag">Teleoperation · 텔레오퍼레이션</div>
+            <div class="project-tag">Teleoperation · Imitation Learning</div>
             <div class="project-name">Force Feedback Leader Arm</div>
             <div class="project-name-ko">F/T 센서 기반 포스 피드백 리더 암</div>
           </div>
           <div class="project-header-right">
             <span class="project-period">Mar. 2025 — Feb. 2026</span>
-            <span class="project-toggle">+</span>
+            <div class="project-toggle">+</div>
           </div>
         </div>
         <div class="project-body">
           <div class="project-body-inner">
             <div class="project-media">
-              <div class="media-slot">
-                <!-- <img src="images/leader_arm_1.jpg" alt="Leader Arm"> -->
-                <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">Leader Arm 사진 추가</span>
-              </div>
-              <span class="media-caption">// Leader Arm hardware photo</span>
-              <div class="media-slot">
-                <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-                <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">데모 영상 추가</span>
-              </div>
-              <span class="media-caption">// Demo video</span>
+              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">Leader Arm 사진 추가</span></div>
+              <span class="media-caption">// images/leader_arm.jpg</span>
+              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">데모 영상 추가</span></div>
+              <span class="media-caption">// YouTube embed</span>
             </div>
             <div class="project-info">
-              <div class="project-desc-text">
-                접촉이 많은 작업에서 비전 전용 텔레오퍼레이션의 감각적 한계를 극복하기 위해 F/T 센서 기반 포스 피드백 리더 암 시스템을 개발. Imitation Learning용 고품질 데모 데이터 수집에 활용.
-              </div>
+              <div class="project-desc-text">접촉이 많은 작업에서 비전 전용 텔레오퍼레이션의 감각 한계를 극복하기 위해 F/T 센서 기반 포스 피드백 리더 암 시스템 개발.</div>
               <ul class="project-bullets">
-                <li>Leader Arm 하드웨어 설계 참여 및 Leader/Follower 시스템의 URDF 모델 개발</li>
-                <li>정밀 키네마틱 동기화를 위한 URDF 기반 디지털 트윈 구현</li>
-                <li>F/T 센서, 카메라, 그리퍼를 Follower URDF에 통합하여 멀티모달 데이터 수집 환경 구성</li>
+                <li>Leader/Follower 시스템 URDF 모델 개발 — 정밀 키네마틱 동기화</li>
+                <li>F/T 센서·카메라·그리퍼를 Follower URDF에 통합 — 멀티모달 데이터 수집</li>
+                <li>디지털 트윈 기반 정확한 시스템 표현 구현</li>
               </ul>
-              <div class="project-stack-wrap">
-                <div class="project-stack-label">Stack</div>
-                <div class="project-stack">
-                  <span>F/T Sensor</span><span>URDF</span><span>ROS</span>
-                  <span>Imitation Learning</span><span>Kinematics</span><span>Gripper</span>
-                </div>
-              </div>
+              <div><div class="project-stack-label">Stack</div>
+              <div class="project-stack"><span>F/T Sensor</span><span>URDF</span><span>ROS</span><span>Imitation Learning</span><span>Kinematics</span></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PROJECT 3: Quadruped Robot -->
       <div class="project-card" id="proj-3">
         <div class="project-header" onclick="toggleProject('proj-3')">
           <div class="project-header-left">
-            <div class="project-tag">Legged Robot · 족형 로봇</div>
+            <div class="project-tag">Legged Robot · Actuator Design</div>
             <div class="project-name">Small-Sized Quadruped Robot</div>
             <div class="project-name-ko">소형 4족 보행 로봇</div>
           </div>
           <div class="project-header-right">
             <span class="project-period">Jun. 2023 — Jun. 2024</span>
-            <span class="project-toggle">+</span>
+            <div class="project-toggle">+</div>
           </div>
         </div>
         <div class="project-body">
           <div class="project-body-inner">
             <div class="project-media">
-              <div class="media-slot">
-                <!-- <img src="images/quadruped_1.jpg" alt="Quadruped Robot"> -->
-                <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">4족 로봇 사진 추가</span>
-              </div>
-              <span class="media-caption">// Quadruped robot photo</span>
-              <div class="media-slot">
-                <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-                <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">보행 데모 영상 추가</span>
-              </div>
-              <span class="media-caption">// Walking demo video</span>
+              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">4족 로봇 사진 추가</span></div>
+              <span class="media-caption">// images/quadruped.jpg</span>
+              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">보행 데모 영상 추가</span></div>
+              <span class="media-caption">// YouTube embed</span>
             </div>
             <div class="project-info">
-              <div class="project-desc-text">
-                계단 등반 및 고속 이동이 가능한 30kg급 4족 보행 로봇 개발. 베지어 곡선 보행 궤적을 활용한 관절 토크 및 각속도 계산, 모터 선정 최적화 수행.
-              </div>
+              <div class="project-desc-text">계단 등반 및 고속 이동이 가능한 30kg급 4족 보행 로봇. 베지어 곡선 기반 관절 토크 최적화 및 액추에이터 팩 설계.</div>
               <ul class="project-bullets">
-                <li>계단 등반 및 2.5 km/h 고속 이동, 5kg 페이로드 지원</li>
+                <li>계단 등반 가능, 2.5 km/h 고속 이동, 5 kg 페이로드</li>
                 <li>베지어 곡선 보행 궤적으로 관절 토크·각속도 최적화</li>
-                <li>11:1 감속비의 1단 유성기어를 탑재한 액추에이터 팩 설계</li>
+                <li>11:1 감속비 1단 유성기어 탑재 액추에이터 팩 설계</li>
               </ul>
-              <div class="project-stack-wrap">
-                <div class="project-stack-label">Stack</div>
-                <div class="project-stack">
-                  <span>SolidWorks</span><span>Planetary Gear</span><span>Bezier Curve</span>
-                  <span>Torque Analysis</span><span>BLDC</span>
-                </div>
-              </div>
+              <div><div class="project-stack-label">Stack</div>
+              <div class="project-stack"><span>SolidWorks</span><span>Planetary Gear</span><span>Bezier Curve</span><span>Torque Analysis</span><span>BLDC</span></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PROJECT 4: MoI Estimation -->
       <div class="project-card" id="proj-4">
         <div class="project-header" onclick="toggleProject('proj-4')">
           <div class="project-header-left">
-            <div class="project-tag">Research · 연구</div>
+            <div class="project-tag">Research · Dynamic Modeling</div>
             <div class="project-name">MoI Estimation for Precision Dynamic Control</div>
             <div class="project-name-ko">정밀 동역학 제어를 위한 관성 모멘트 추정</div>
           </div>
           <div class="project-header-right">
             <span class="project-period">Jul. 2024 — Oct. 2024</span>
-            <span class="project-toggle">+</span>
+            <div class="project-toggle">+</div>
           </div>
         </div>
         <div class="project-body">
           <div class="project-body-inner">
             <div class="project-media">
-              <div class="media-slot">
-                <!-- <img src="images/moi_1.jpg" alt="MoI Estimation System"> -->
-                <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">측정 시스템 사진 추가</span>
-              </div>
-              <span class="media-caption">// MoI estimation system photo</span>
-              <div class="media-slot">
-                <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-                <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">실험 영상 추가</span>
-              </div>
-              <span class="media-caption">// Experiment video</span>
+              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">측정 시스템 사진 추가</span></div>
+              <span class="media-caption">// images/moi.jpg</span>
+              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">실험 영상 추가</span></div>
+              <span class="media-caption">// YouTube embed</span>
             </div>
             <div class="project-info">
-              <div class="project-desc-text">
-                CAD 모델과 실제 제작 부품 간의 관성 특성 불일치를 해소하기 위한 관성 모멘트(MoI) 추정 시스템 개발.
-              </div>
+              <div class="project-desc-text">CAD 모델과 실제 제작 부품 간의 관성 특성 불일치를 해소하기 위한 관성 모멘트(MoI) 추정 시스템 개발.</div>
               <ul class="project-bullets">
-                <li>4개의 로드셀에 대한 힘 분포를 수학적으로 모델링하여 물리적 특성으로 매핑</li>
-                <li>3단계 칼만 필터 시스템으로 총 무게, 무게중심(CoG), Ixx·Iyy·Izz 정밀 추정</li>
-                <li>CAD 모델과 실제 부품 간의 동역학적 불일치 보정</li>
+                <li>4개 로드셀 힘 분포 수학적 모델링 → 물리적 특성 매핑</li>
+                <li>3단계 칼만 필터로 총 무게, CoG, Ixx·Iyy·Izz 정밀 추정</li>
+                <li>CAD 모델과 실제 부품 간 동역학적 불일치 보정</li>
               </ul>
-              <div class="project-stack-wrap">
-                <div class="project-stack-label">Stack</div>
-                <div class="project-stack">
-                  <span>Kalman Filter</span><span>Load Cell</span><span>MATLAB</span>
-                  <span>CoG Estimation</span><span>Dynamic Modeling</span>
-                </div>
-              </div>
+              <div><div class="project-stack-label">Stack</div>
+              <div class="project-stack"><span>Kalman Filter</span><span>Load Cell</span><span>MATLAB</span><span>CoG Estimation</span></div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PROJECT 5: Mobile Manipulator -->
       <div class="project-card" id="proj-5">
         <div class="project-header" onclick="toggleProject('proj-5')">
           <div class="project-header-left">
-            <div class="project-tag">Manipulator · 매니퓰레이터</div>
+            <div class="project-tag">Manipulator · Autonomous Navigation</div>
             <div class="project-name">Mobile Manipulator for Medical Assistance</div>
             <div class="project-name-ko">의료 보조용 모바일 매니퓰레이터</div>
           </div>
           <div class="project-header-right">
             <span class="project-period">Mar. 2024 — Oct. 2024</span>
-            <span class="project-toggle">+</span>
+            <div class="project-toggle">+</div>
           </div>
         </div>
         <div class="project-body">
           <div class="project-body-inner">
             <div class="project-media">
-              <div class="media-slot">
-                <!-- <img src="images/manipulator_1.jpg" alt="Mobile Manipulator"> -->
-                <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">매니퓰레이터 사진 추가</span>
-              </div>
-              <span class="media-caption">// Mobile manipulator photo</span>
-              <div class="media-slot">
-                <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-                <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">동작 시연 영상 추가</span>
-              </div>
-              <span class="media-caption">// Operation demo video</span>
+              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">매니퓰레이터 사진 추가</span></div>
+              <span class="media-caption">// images/manipulator.jpg</span>
+              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">동작 시연 영상 추가</span></div>
+              <span class="media-caption">// YouTube embed</span>
             </div>
             <div class="project-info">
-              <div class="project-desc-text">
-                Arduino 기반 3D 프린팅 모바일 매니퓰레이터 개발. 3-DoF 매니퓰레이터와 자율 라인 트래킹 시스템을 갖춘 의료 보조 로봇.
-              </div>
+              <div class="project-desc-text">Arduino 기반 3D 프린팅 모바일 매니퓰레이터. 3-DoF 팔과 자율 라인 트래킹 시스템을 통합한 의료 보조 로봇.</div>
               <ul class="project-bullets">
-                <li>자율 주행 후 200g 페이로드 물체 Pick & Place 전 사이클 검증</li>
-                <li>조작 오류율 10% 미만 달성, 초기 설계 사양 전항목 충족</li>
-                <li>3-DoF 매니퓰레이터 + 자율 라인 트래킹 시스템 통합</li>
+                <li>자율 주행 → 200g 페이로드 Pick & Place 전 사이클 검증</li>
+                <li>조작 오류율 10% 미만, 초기 설계 사양 전항목 충족</li>
+                <li>3-DoF 매니퓰레이터 + 자율 라인 트래킹 완전 통합</li>
               </ul>
-              <div class="project-stack-wrap">
-                <div class="project-stack-label">Stack</div>
-                <div class="project-stack">
-                  <span>Arduino</span><span>3D Printing</span><span>3-DoF Manipulator</span>
-                  <span>Line Tracking</span><span>Pick & Place</span>
-                </div>
-              </div>
+              <div><div class="project-stack-label">Stack</div>
+              <div class="project-stack"><span>Arduino</span><span>3D Printing</span><span>3-DoF Arm</span><span>Line Tracking</span></div></div>
             </div>
           </div>
         </div>
@@ -839,48 +769,29 @@
 <section id="contact">
   <div class="container">
     <div class="section-header reveal">
-      <h2 class="section-title"><span>05.</span> Contact</h2>
-      <span class="section-num">연락처</span>
+      <h2 class="section-title">CONTACT</h2>
+      <div class="section-meta"><span>연락처</span><span>05 / 05</span></div>
     </div>
     <div class="contact-grid reveal">
       <div>
-        <p class="contact-tagline">
-          함께 로봇을<br>
-          <span>만들어봅시다.</span><br>
-          <span style="font-size:0.6em; color:var(--text-muted); font-family:var(--mono);">Let's build something that moves.</span>
-        </p>
-        <p class="contact-note">
-          협업 제안, 채용 문의, 연구 토론 등 어떤 연락이든 환영합니다.<br>
-          Open to collaboration, research discussions, and job opportunities.
-        </p>
+        <p class="contact-tagline">함께<br>로봇을<br><em>만들어봅시다.</em></p>
+        <p class="contact-note">협업 제안, 채용 문의, 연구 토론 등 어떤 연락이든 환영합니다.<br><br>Open to collaboration, research discussions, and job opportunities.</p>
       </div>
       <div class="contact-links">
         <a href="mailto:sungjun1107@g.skku.edu" class="contact-link-item">
-          <div class="contact-link-left">
-            <span class="contact-link-platform">Email</span>
-            <span class="contact-link-value">sungjun1107@g.skku.edu</span>
-          </div>
+          <div class="contact-link-left"><span class="contact-link-platform">Email</span><span class="contact-link-value">sungjun1107@g.skku.edu</span></div>
           <span class="contact-link-arrow">↗</span>
         </a>
         <a href="https://github.com/jun117" target="_blank" class="contact-link-item">
-          <div class="contact-link-left">
-            <span class="contact-link-platform">GitHub</span>
-            <span class="contact-link-value">github.com/jun117</span>
-          </div>
+          <div class="contact-link-left"><span class="contact-link-platform">GitHub</span><span class="contact-link-value">github.com/jun117</span></div>
           <span class="contact-link-arrow">↗</span>
         </a>
         <a href="tel:+821093510324" class="contact-link-item">
-          <div class="contact-link-left">
-            <span class="contact-link-platform">Phone</span>
-            <span class="contact-link-value">(+82) 10-9351-0324</span>
-          </div>
+          <div class="contact-link-left"><span class="contact-link-platform">Phone</span><span class="contact-link-value">(+82) 10-9351-0324</span></div>
           <span class="contact-link-arrow">↗</span>
         </a>
         <a href="Sungjun_Lee_Resume.pdf" download class="contact-link-item">
-          <div class="contact-link-left">
-            <span class="contact-link-platform">CV / PDF</span>
-            <span class="contact-link-value">Download Resume</span>
-          </div>
+          <div class="contact-link-left"><span class="contact-link-platform">CV / PDF</span><span class="contact-link-value">Download Resume</span></div>
           <span class="contact-link-arrow">↓</span>
         </a>
       </div>
@@ -888,8 +799,7 @@
   </div>
 </section>
 
-<!-- FOOTER -->
-<div class="container">
+<div class="footer-wrap">
   <footer>
     <span>© 2026 Sungjun Lee</span>
     <span>Hardware Design Engineer · SKKU Robotics Innovatory Lab</span>
@@ -898,26 +808,21 @@
 </div>
 
 <script>
-  // Scroll reveal
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
-  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Active nav
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
-    navLinks.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
-    });
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 70) current = s.id; });
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
   });
 
-  // Project accordion
   function toggleProject(id) {
     const card = document.getElementById(id);
     const isOpen = card.classList.contains('open');
