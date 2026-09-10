@@ -20,16 +20,16 @@
   --paper:#FFFFFF;
   --mist:#F0F3F7;
   --rule:#C9D3DE;
-  --maxw:1180px;
-  --pad:clamp(20px,5vw,64px);
+  --maxw:1240px;
+  --pad:clamp(20px,4vw,56px);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:54px}
+html{scroll-behavior:smooth;scroll-padding-top:50px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{
   margin:0;background:var(--paper);color:var(--ink);
   font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  font-size:16px;line-height:1.7;letter-spacing:-.01em;
+  font-size:15px;line-height:1.62;letter-spacing:-.01em;
   -webkit-font-smoothing:antialiased;
 }
 img{max-width:100%;display:block}
@@ -38,26 +38,26 @@ a{color:inherit}
 
 /* ── hero ───────────────────────────── */
 .hero{
-  background:var(--navy);color:#fff;min-height:100svh;
+  background:var(--navy);color:#fff;min-height:88svh;
   display:flex;flex-direction:column;justify-content:center;
-  position:relative;padding:120px 0 96px;
+  position:relative;padding:96px 0 84px;
 }
 .hero .wrap{width:100%}
 .wordmark{
   margin:0;font-weight:800;line-height:.9;
-  font-size:clamp(56px,13vw,168px);letter-spacing:-.045em;
+  font-size:clamp(46px,10.5vw,128px);letter-spacing:-.045em;
 }
 .hero-rule{
-  height:3px;background:#fff;margin:clamp(18px,3vw,30px) 0 clamp(16px,2.4vw,22px);
+  height:2.5px;background:#fff;margin:clamp(18px,3vw,30px) 0 clamp(16px,2.4vw,22px);
   max-width:min(760px,86%);
 }
-.hero-name{margin:0;font-size:clamp(17px,2.2vw,23px);font-weight:500;line-height:1.55}
+.hero-name{margin:0;font-size:clamp(15.5px,1.7vw,19px);font-weight:500;line-height:1.55}
 .hero-name strong{font-weight:800;font-size:1.28em;letter-spacing:-.02em}
 .hero-contact{
-  position:absolute;right:var(--pad);bottom:clamp(28px,6vh,64px);
-  text-align:right;font-size:14.5px;line-height:1.85;
+  position:absolute;right:var(--pad);bottom:clamp(26px,5vh,52px);
+  text-align:right;font-size:13.5px;line-height:1.8;
 }
-.hero-contact h2{font-size:17px;font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1.5px solid rgba(255,255,255,.75)}
+.hero-contact h2{font-size:15.5px;font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1.5px solid rgba(255,255,255,.75)}
 .hero-contact b{font-weight:700;margin-right:4px}
 .hero-contact a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
 .hero-contact a:hover{border-bottom-color:#fff}
@@ -72,42 +72,42 @@ a{color:inherit}
   backdrop-filter:saturate(140%) blur(8px);color:#fff;
   border-bottom:1px solid rgba(255,255,255,.14);
 }
-.nav-in{display:flex;align-items:center;gap:6px;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);height:54px;overflow-x:auto;scrollbar-width:none}
+.nav-in{display:flex;align-items:center;gap:6px;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);height:50px;overflow-x:auto;scrollbar-width:none}
 .nav-in::-webkit-scrollbar{display:none}
 .nav a{
-  text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap;
-  padding:7px 11px;border-radius:3px;color:rgba(255,255,255,.78);
+  text-decoration:none;font-size:13.4px;font-weight:600;white-space:nowrap;
+  padding:6px 10px;border-radius:3px;color:rgba(255,255,255,.78);
 }
 .nav a:hover,.nav a:focus-visible{color:#fff;background:rgba(255,255,255,.12)}
-.nav .me{font-weight:800;color:#fff;margin-right:auto;padding-left:0;font-size:15px}
+.nav .me{font-weight:800;color:#fff;margin-right:auto;padding-left:0;font-size:14px}
 .nav .pdf{border:1px solid rgba(255,255,255,.45)}
 
 /* ── section frame ──────────────────── */
-.section{padding:clamp(56px,8vw,104px) 0}
+.section{padding:clamp(44px,5.5vw,76px) 0}
 .section+.section{border-top:1px solid var(--rule)}
-.band{background:var(--navy);color:#fff;padding:26px 0 24px}
+.band{background:var(--navy);color:#fff;padding:20px 0 19px}
 .band-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
-.band .idx{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.04em;line-height:1;opacity:.55}
-.band h2{margin:0;font-size:clamp(19px,2.6vw,27px);font-weight:700;letter-spacing:-.02em}
-.band .meta{margin-left:auto;font-size:13.5px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
+.band .idx{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1;opacity:.55}
+.band h2{margin:0;font-size:clamp(17px,2vw,22px);font-weight:700;letter-spacing:-.02em}
+.band .meta{margin-left:auto;font-size:12.8px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
 
 h3.sec{
-  margin:0 0 30px;font-size:clamp(21px,2.6vw,26px);font-weight:800;color:var(--navy);
-  letter-spacing:-.025em;padding-bottom:12px;border-bottom:2px solid var(--navy);
+  margin:0 0 26px;font-size:clamp(19px,2.1vw,22px);font-weight:800;color:var(--navy);
+  letter-spacing:-.025em;padding-bottom:10px;border-bottom:2px solid var(--navy);
 }
 h4.sub{
-  margin:0 0 34px;font-size:clamp(17px,2vw,20px);font-weight:700;color:var(--ink);
+  margin:0 0 28px;font-size:clamp(16px,1.7vw,17.5px);font-weight:700;color:var(--ink);
   letter-spacing:-.02em;display:flex;align-items:center;gap:12px;
 }
 h4.sub::before{content:"";width:22px;height:2px;background:var(--blue);flex:none}
-h5{margin:0 0 10px;font-size:16.5px;font-weight:700;color:var(--blue);letter-spacing:-.02em}
-.block+.block{margin-top:26px}
+h5{margin:0 0 9px;font-size:15.4px;font-weight:700;color:var(--blue);letter-spacing:-.02em}
+.block+.block{margin-top:22px}
 
 /* lists */
 ul.pts{margin:0;padding:0;list-style:none}
-ul.pts li{position:relative;padding-left:15px;margin-bottom:7px;font-size:15.3px}
+ul.pts li{position:relative;padding-left:14px;margin-bottom:6px;font-size:14.4px}
 ul.pts li::before{content:"";position:absolute;left:0;top:.68em;width:5px;height:5px;background:var(--navy)}
-ul.pts li.res{padding-left:22px;color:var(--steel);font-size:14.6px}
+ul.pts li.res{padding-left:20px;color:var(--steel);font-size:13.9px}
 ul.pts li.res::before{content:"→";background:none;position:absolute;left:0;top:0;width:auto;height:auto;color:var(--blue);font-weight:700}
 ul.pts li em{font-style:normal;color:var(--steel);font-size:.94em}
 
@@ -117,33 +117,33 @@ figure{margin:0}
   background:var(--mist);border:1px solid var(--rule);padding:14px;
   cursor:zoom-in;position:relative;
 }
-.fig img{margin:0 auto}
-figcaption{margin-top:9px;font-size:13px;color:var(--steel);line-height:1.55}
+.fig img{margin:0 auto;max-height:70vh;width:auto}
+figcaption{margin-top:8px;font-size:12.4px;color:var(--steel);line-height:1.55}
 
 /* grids */
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(26px,4vw,52px);align-items:start}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,3.2vw,44px);align-items:start}
 .split.narrow-l{grid-template-columns:minmax(0,.78fr) minmax(0,1fr)}
 .split.wide-l{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
-.stack{display:grid;gap:clamp(26px,4vw,44px)}
-.sticky-col{position:sticky;top:80px}
+.stack{display:grid;gap:clamp(22px,3vw,34px)}
+.sticky-col{position:sticky;top:72px}
 @media (max-width:880px){.split,.split.narrow-l,.split.wide-l{grid-template-columns:1fr}.sticky-col{position:static}}
 
 /* overview + contribution */
 .overview{border-top:2px solid var(--navy);padding-top:18px}
 .overview dl{margin:0;display:grid;grid-template-columns:118px 1fr;gap:9px 18px}
-.overview dt{color:var(--steel);font-size:14px;font-weight:600}
-.overview dd{margin:0;font-size:15.3px;font-weight:600}
+.overview dt{color:var(--steel);font-size:13.2px;font-weight:600}
+.overview dd{margin:0;font-size:14.4px;font-weight:600}
 .overview dd span{font-weight:500;color:var(--steel)}
-.contrib{border:1.5px solid var(--navy);margin-top:30px}
-.contrib h4{margin:0;background:var(--navy);color:#fff;font-size:19px;font-weight:700;padding:11px 20px;letter-spacing:-.02em}
-.contrib-body{padding:20px 20px 22px}
-.contrib-body ul.pts li{margin-bottom:11px}
+.contrib{border:1.5px solid var(--navy);margin-top:26px}
+.contrib h4{margin:0;background:var(--navy);color:#fff;font-size:17px;font-weight:700;padding:9px 18px;letter-spacing:-.02em}
+.contrib-body{padding:17px 18px 19px}
+.contrib-body ul.pts li{margin-bottom:9px}
 
 /* tables */
 .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;font-size:13.2px;font-variant-numeric:tabular-nums;min-width:520px}
+table{border-collapse:collapse;width:100%;font-size:12.6px;font-variant-numeric:tabular-nums;min-width:520px}
 caption{caption-side:bottom;padding-top:9px;font-size:12.6px;color:var(--steel);text-align:left}
-th,td{border:1px solid var(--rule);padding:6px 9px;text-align:center;white-space:nowrap}
+th,td{border:1px solid var(--rule);padding:5px 8px;text-align:center;white-space:nowrap}
 thead th{background:var(--mist);color:var(--navy);font-weight:700}
 thead tr.sub th{font-weight:500;color:var(--steel);font-size:12.4px}
 tbody th{background:#fff;font-weight:600;text-align:left}
@@ -154,42 +154,42 @@ tr.hl td,tr.hl th{background:#F7F9FC}
 .refs li{margin-top:4px}
 
 /* resume */
-.resume{display:grid;grid-template-columns:290px 1fr;gap:clamp(28px,4.5vw,60px);align-items:start}
+.resume{display:grid;grid-template-columns:272px 1fr;gap:clamp(26px,3.6vw,52px);align-items:start}
 @media (max-width:880px){.resume{grid-template-columns:1fr}}
-.card{background:var(--mist);border-left:4px solid var(--navy);padding:26px 24px 30px;position:sticky;top:78px}
+.card{background:var(--mist);border-left:4px solid var(--navy);padding:22px 20px 26px;position:sticky;top:70px}
 @media (max-width:880px){.card{position:static}}
-.card img{width:150px;margin:0 auto 16px;border:1px solid var(--rule)}
-.card .nm{text-align:center;margin:0 0 2px;font-size:23px;font-weight:800;letter-spacing:-.03em}
-.card .nm-en{text-align:center;margin:0 0 22px;font-size:14px;color:var(--steel);font-weight:600}
-.card h3{margin:0 0 10px;font-size:15px;font-weight:700;color:var(--navy);padding-bottom:6px;border-bottom:1.5px solid var(--navy)}
-.card p{margin:0 0 4px;font-size:14.2px}
+.card img{width:128px;margin:0 auto 14px;border:1px solid var(--rule)}
+.card .nm{text-align:center;margin:0 0 2px;font-size:20px;font-weight:800;letter-spacing:-.03em}
+.card .nm-en{text-align:center;margin:0 0 18px;font-size:13px;color:var(--steel);font-weight:600}
+.card h3{margin:0 0 9px;font-size:14px;font-weight:700;color:var(--navy);padding-bottom:6px;border-bottom:1.5px solid var(--navy)}
+.card p{margin:0 0 3px;font-size:13.4px}
 .card .grp{margin-top:24px}
-.card .deg{font-weight:700;font-size:14.6px;margin-top:12px}
-.card .sub2{color:var(--steel);font-size:13.4px;line-height:1.55}
+.card .deg{font-weight:700;font-size:13.8px;margin-top:11px}
+.card .sub2{color:var(--steel);font-size:12.7px;line-height:1.55}
 .card a{text-decoration:none;border-bottom:1px solid var(--rule)}
 
-.exp{margin:0 0 34px}
+.exp{margin:0 0 28px}
 .exp:last-child{margin-bottom:0}
-.exp h4{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.025em;line-height:1.45}
-.exp .when{margin:0 0 10px;font-size:13.4px;color:var(--steel);font-weight:600;font-variant-numeric:tabular-nums}
+.exp h4{margin:0 0 4px;font-size:16.5px;font-weight:700;letter-spacing:-.025em;line-height:1.45}
+.exp .when{margin:0 0 9px;font-size:12.8px;color:var(--steel);font-weight:600;font-variant-numeric:tabular-nums}
 .exp .when b{color:var(--blue)}
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
 .chips span{border:1px solid var(--rule);background:var(--mist);font-size:12.8px;padding:4px 10px;color:var(--navy);font-weight:600}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:46px;padding-top:30px;border-top:1px solid var(--rule)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:38px;padding-top:26px;border-top:1px solid var(--rule)}
 @media (max-width:680px){.two{grid-template-columns:1fr;gap:26px}}
-.two h4{margin:0 0 12px;font-size:16px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+.two h4{margin:0 0 11px;font-size:15px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
 
 /* video link */
-.linkline{margin-top:18px;font-size:14px}
+.linkline{margin-top:16px;font-size:13.4px}
 .linkline a{color:var(--blue);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(20,83,158,.4)}
 .linkline a:hover{border-bottom-color:var(--blue)}
 
 /* closing */
-.closing{background:var(--navy);color:#fff;text-align:center;padding:clamp(84px,14vw,150px) 0}
-.closing h2{margin:0;font-size:clamp(38px,8vw,78px);font-weight:800;letter-spacing:-.035em}
+.closing{background:var(--navy);color:#fff;text-align:center;padding:clamp(70px,10vw,116px) 0}
+.closing h2{margin:0;font-size:clamp(34px,6.5vw,62px);font-weight:800;letter-spacing:-.035em}
 .closing .rule{height:2px;background:rgba(255,255,255,.85);margin:26px auto 24px;max-width:min(680px,84%)}
-.closing p{margin:0 0 8px;font-size:clamp(15px,2vw,17.5px);color:rgba(255,255,255,.85)}
-.closing p.big{color:#fff;font-size:clamp(16px,2.2vw,19px)}
+.closing p{margin:0 0 7px;font-size:clamp(14px,1.5vw,15.5px);color:rgba(255,255,255,.85)}
+.closing p.big{color:#fff;font-size:clamp(15px,1.7vw,17px)}
 .closing b{font-weight:800;border-bottom:1.5px solid rgba(255,255,255,.7);padding-bottom:1px}
 footer{background:var(--navy-deep);color:rgba(255,255,255,.6);font-size:13px;padding:20px 0;text-align:center}
 footer a{color:rgba(255,255,255,.82);text-decoration:none}
@@ -288,9 +288,6 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
               <li>다관절 로봇 기구 설계, 최적 설계, 도면 작성 및 공차 적용</li>
               <li>OPIc English IH <em>(Intermediate High, 업무 활용 가능)</em></li>
             </ul>
-            <div class="chips">
-              <span>SolidWorks</span><span>Inventor</span><span>Nastran</span><span>MATLAB</span><span>ROS 1 Noetic</span>
-            </div>
           </div>
           <div>
             <h4>Awards &amp; Publication</h4>
@@ -349,16 +346,14 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 — 관절 구성</h3>
+    <h3 class="sec">13 자유도 상체 설계 – 관절 구성</h3>
     <div class="split wide-l">
       <div class="stack">
         <figure class="fig">
           <img src="img/arm_joints.jpg" alt="팔 관절 구성 및 주요 치수 CAD 뷰" loading="lazy">
-          <figcaption>단일 팔 관절 배치 및 주요 치수 (mm)</figcaption>
         </figure>
         <div class="tbl-scroll">
           <table>
-            <caption>Required Torque (Nm) — 태스크별 관절 요구 토크</caption>
             <thead>
               <tr><th rowspan="2">Joint Name</th><th colspan="3">Required Torque (Nm)</th></tr>
               <tr class="sub"><th>Pick &amp; Stow<br>Payload 1 kg, SF 1.0</th><th>Lifting Box<br>Payload 1 kg, SF 1.0</th><th>Extreme Motion<br>Payload 1 kg, SF 2.0</th></tr>
@@ -408,16 +403,14 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 — 파트 설계 및 구조 검증</h3>
+    <h3 class="sec">13 자유도 상체 설계 – 파트 설계 및 구조 검증</h3>
     <div class="split wide-l">
       <div class="stack">
         <figure class="fig">
           <img src="img/part_design.jpg" alt="위상 최적화 전후 파트 형상 비교" loading="lazy">
-          <figcaption>위상 최적화 → 설계 변수 최적화를 거친 경량 파트 형상 도출 과정</figcaption>
         </figure>
         <figure class="fig">
           <img src="img/drawings.jpg" alt="상체 어셈블리 2D 가공 도면" loading="lazy">
-          <figcaption>전체 알루미늄 파트 가공 도면 (2D 도면 31매)</figcaption>
         </figure>
       </div>
       <div class="sticky-col">
@@ -454,11 +447,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 — 관절별 가동범위</h3>
+    <h3 class="sec">13 자유도 상체 설계 – 관절별 가동범위</h3>
     <div class="stack">
       <figure class="fig">
         <img src="img/rom_diagram.jpg" alt="관절별 가동범위 정의 다이어그램" loading="lazy">
-        <figcaption>Shoulder Pitch / Roll / Yaw, Elbow Pitch, Wrist Yaw, Neck Pitch / Yaw, Torso Yaw 가동범위 정의</figcaption>
       </figure>
 
       <div class="tbl-scroll">
@@ -492,7 +484,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       <div class="split">
         <figure class="fig">
           <img src="img/rom_blender.jpg" alt="Torso yaw 보상 전후 손끝 궤적 비교" loading="lazy">
-          <figcaption>w/o Torso Yaw Compensation (green trajectory, left) · w/ Torso Yaw Compensation (blue trajectory, right)</figcaption>
+          <figcaption>w/o Torso Yaw Compensation (green trajectory, left), w/ Torso Yaw Compensation (blue trajectory, right)</figcaption>
         </figure>
         <div>
           <h5>인체 가동범위 기준 설계</h5>
@@ -517,12 +509,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <div class="split narrow-l">
       <figure class="fig">
         <img src="img/wholebody.jpg" alt="23 자유도 전신 관절 배치도" loading="lazy">
-        <figcaption>전신 관절 축 배치 (Yaw / Roll / Pitch)</figcaption>
       </figure>
       <div class="stack">
         <figure class="fig">
           <img src="img/sysdiagram.jpg" alt="전장 시스템 블록 다이어그램" loading="lazy">
-          <figcaption>전원 · 통신 계통 블록 다이어그램 (Power, Ethernet, EtherCAT, USB, TTL, I2C, PWM)</figcaption>
         </figure>
         <div>
           <div class="block">
@@ -552,11 +542,9 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       <div class="stack">
         <figure class="fig">
           <img src="img/teleop.jpg" alt="XR 기기를 착용한 사용자의 실시간 상체 텔레오퍼레이션 장면" loading="lazy">
-          <figcaption>XR 기기 기반 실시간 상체 텔레오퍼레이션 (좌하단: User View)</figcaption>
         </figure>
         <figure class="fig">
           <img src="img/act.jpg" alt="ACT 온보드 추론 기반 pick-and-place 자율 수행 장면" loading="lazy">
-          <figcaption>On-Board Imitation Learning Inference (ACT) — Task: Pick-and-Place, Success 7 / 9</figcaption>
         </figure>
       </div>
       <div class="sticky-col">
@@ -584,7 +572,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
             <li>물체 부재 시 동작 미수행으로 성공적 비전 데이터 학습 검증</li>
           </ul>
         </div>
-        <p class="linkline">Detailed Videos ·
+        <p class="linkline">Detailed Videos:
           <a href="https://youtube.com/channel/UCV3Zw336hAo9GoBYu107n7Q?si=nT9ag3qSNsnR3HVv" target="_blank" rel="noopener">YouTube 채널에서 보기</a>
         </p>
       </div>
@@ -640,7 +628,6 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <div class="stack">
       <figure class="fig">
         <img src="img/urdf.jpg" alt="리더암과 팔로워의 DH 파라미터 정의 도면" loading="lazy">
-        <figcaption>One-arm · Dual-arm 리더암 (좌) 과 팔로워 (우) 의 링크 파라미터 정의</figcaption>
       </figure>
 
       <div class="split">
@@ -748,7 +735,6 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <div class="split">
       <figure class="fig">
         <img src="img/actuator.jpg" alt="구동기 팩 단면도 및 유성기어열 구성" loading="lazy">
-        <figcaption>구동기 팩 단면 — 하우징 · 출력 베어링 · 자기 엔코더 · 모터 드라이버 (상) / 유성기어열 구성 (하)</figcaption>
       </figure>
       <div class="sticky-col">
         <div class="block">
@@ -780,17 +766,14 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <div class="stack">
       <figure class="fig">
         <img src="img/leg_link.jpg" alt="다리 링크 위상 최적화 전후 형상" loading="lazy">
-        <figcaption>위상 최적화 및 설계 변수 최적화를 통한 상·하 링크 경량 형상 도출</figcaption>
       </figure>
       <div class="split">
         <div class="stack">
           <figure class="fig">
             <img src="img/leg_joint.jpg" alt="Hip, Knee, Scapular 관절 배치" loading="lazy">
-            <figcaption>Hip · Knee · Scapular 관절 배치</figcaption>
           </figure>
           <figure class="fig">
             <img src="img/leg_flex.jpg" alt="다리 굴곡 및 신전 가동범위" loading="lazy">
-            <figcaption>Flexion [−25°] / Extension [155°]</figcaption>
           </figure>
         </div>
         <div>
