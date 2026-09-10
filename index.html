@@ -1,567 +1,632 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Sungjun Lee — Hardware Design Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;700&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이성준 | Portfolio — 로봇 기구 설계</title>
+<meta name="description" content="이성준 포트폴리오. 성인 크기 23 자유도 휴머노이드 로봇 상체 설계, F/T 센서 기반 힘 피드백 리더암, 소형 사족보행 로봇 설계.">
+<meta property="og:title" content="이성준 | Portfolio — 로봇 기구 설계">
+<meta property="og:description" content="휴머노이드 상체 설계 · 리더암 개발 · 사족보행 로봇 설계">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
 <style>
-  :root {
-    --bg: #f4f2ee;
-    --bg-alt: #eceae5;
-    --surface: #ffffff;
-    --border: #d8d4cc;
-    --border-light: #e5e2da;
-    --text: #111111;
-    --text-muted: #555550;
-    --text-dim: #999990;
-    --mono: 'DM Mono', monospace;
-    --sans: 'DM Sans', 'Noto Sans KR', sans-serif;
-    --display: 'Bebas Neue', sans-serif;
-  }
+:root{
+  --navy:#012F6D;
+  --navy-deep:#011E46;
+  --blue:#14539E;
+  --steel:#5C6B7C;
+  --ink:#151A20;
+  --paper:#FFFFFF;
+  --mist:#F0F3F7;
+  --rule:#C9D3DE;
+  --maxw:1180px;
+  --pad:clamp(20px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:54px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  font-size:16px;line-height:1.7;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-weight: 400;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--text); }
+/* ── hero ───────────────────────────── */
+.hero{
+  background:var(--navy);color:#fff;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;padding:120px 0 96px;
+}
+.hero .wrap{width:100%}
+.wordmark{
+  margin:0;font-weight:800;line-height:.9;
+  font-size:clamp(56px,13vw,168px);letter-spacing:-.045em;
+}
+.hero-rule{
+  height:3px;background:#fff;margin:clamp(18px,3vw,30px) 0 clamp(16px,2.4vw,22px);
+  max-width:min(760px,86%);
+}
+.hero-name{margin:0;font-size:clamp(17px,2.2vw,23px);font-weight:500;line-height:1.55}
+.hero-name strong{font-weight:800;font-size:1.28em;letter-spacing:-.02em}
+.hero-contact{
+  position:absolute;right:var(--pad);bottom:clamp(28px,6vh,64px);
+  text-align:right;font-size:14.5px;line-height:1.85;
+}
+.hero-contact h2{font-size:17px;font-weight:700;margin:0 0 4px;padding-bottom:6px;border-bottom:1.5px solid rgba(255,255,255,.75)}
+.hero-contact b{font-weight:700;margin-right:4px}
+.hero-contact a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35)}
+.hero-contact a:hover{border-bottom-color:#fff}
+@media (max-width:760px){
+  .hero{min-height:auto;padding:104px 0 48px}
+  .hero-contact{position:static;text-align:left;margin-top:44px;padding-inline:var(--pad)}
+}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(244,242,238,0.93);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  nav .inner {
-    max-width: 1080px; margin: 0 auto; padding: 0 2.5rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 56px;
-  }
-  .nav-logo { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--text); font-weight: 500; }
-  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
-  .nav-links a {
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
-    color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.15s;
-  }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+/* ── nav ────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:60;background:rgba(1,30,70,.96);
+  backdrop-filter:saturate(140%) blur(8px);color:#fff;
+  border-bottom:1px solid rgba(255,255,255,.14);
+}
+.nav-in{display:flex;align-items:center;gap:6px;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);height:54px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.nav a{
+  text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap;
+  padding:7px 11px;border-radius:3px;color:rgba(255,255,255,.78);
+}
+.nav a:hover,.nav a:focus-visible{color:#fff;background:rgba(255,255,255,.12)}
+.nav .me{font-weight:800;color:#fff;margin-right:auto;padding-left:0;font-size:15px}
+.nav .pdf{border:1px solid rgba(255,255,255,.45)}
 
-  /* ── LAYOUT ── */
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 2.5rem; }
-  section { padding: 7rem 0; border-top: 1px solid var(--border); }
-  .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
-  }
-  .section-title {
-    font-family: var(--display);
-    font-size: clamp(2.5rem, 5vw, 3.8rem);
-    font-weight: 400; letter-spacing: 0.05em; line-height: 1; color: var(--text);
-  }
-  .section-meta {
-    font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim);
-    letter-spacing: 0.12em; text-transform: uppercase;
-    display: flex; flex-direction: column; align-items: flex-end; gap: 0.2rem;
-  }
+/* ── section frame ──────────────────── */
+.section{padding:clamp(56px,8vw,104px) 0}
+.section+.section{border-top:1px solid var(--rule)}
+.band{background:var(--navy);color:#fff;padding:26px 0 24px}
+.band-in{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.band .idx{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.04em;line-height:1;opacity:.55}
+.band h2{margin:0;font-size:clamp(19px,2.6vw,27px);font-weight:700;letter-spacing:-.02em}
+.band .meta{margin-left:auto;font-size:13.5px;color:rgba(255,255,255,.72);font-variant-numeric:tabular-nums}
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh; display: flex; align-items: center;
-    padding-top: 56px; position: relative; overflow: hidden;
-  }
-  #hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image: radial-gradient(circle, #c0bdb4 1px, transparent 1px);
-    background-size: 28px 28px;
-    opacity: 0.4; pointer-events: none;
-  }
-  .hero-inner {
-    position: relative; z-index: 1;
-    display: grid; grid-template-columns: 1fr auto;
-    align-items: end; gap: 4rem;
-    width: 100%; padding: 7rem 0 5rem;
-  }
-  .hero-eyebrow {
-    display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.5rem;
-    opacity: 0; animation: fadeUp 0.5s ease 0.1s forwards;
-  }
-  .hero-eyebrow-dot { width: 7px; height: 7px; background: var(--text); border-radius: 50%; }
-  .hero-eyebrow-text { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); }
-  .hero-name {
-    font-family: var(--display);
-    font-size: clamp(5.5rem, 13vw, 11rem);
-    font-weight: 400; line-height: 0.9; letter-spacing: 0.02em;
-    color: var(--text); margin-bottom: 2rem;
-    opacity: 0; animation: fadeUp 0.6s ease 0.25s forwards;
-  }
-  .hero-name em { font-style: normal; color: var(--text-dim); }
-  .hero-tagline {
-    font-size: clamp(1rem, 1.8vw, 1.25rem); font-weight: 700;
-    color: var(--text); margin-bottom: 0.5rem; letter-spacing: -0.01em;
-    opacity: 0; animation: fadeUp 0.5s ease 0.4s forwards;
-  }
-  .hero-sub {
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 0.9rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.7;
-    opacity: 0; animation: fadeUp 0.5s ease 0.5s forwards;
-  }
-  .hero-quote {
-    font-family: var(--mono); font-size: 0.75rem; font-style: italic;
-    color: var(--text-dim); margin-bottom: 3rem;
-    padding-left: 1rem; border-left: 2px solid var(--border);
-    opacity: 0; animation: fadeUp 0.5s ease 0.55s forwards;
-  }
-  .hero-cta {
-    display: flex; gap: 0.8rem; flex-wrap: wrap;
-    opacity: 0; animation: fadeUp 0.5s ease 0.7s forwards;
-  }
-  .btn {
-    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.85rem 2rem; text-decoration: none;
-    border: 1.5px solid; transition: all 0.18s; cursor: pointer;
-    display: inline-flex; align-items: center; gap: 0.5rem;
-  }
-  .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); }
-  .btn-primary:hover { background: #333; border-color: #333; }
-  .btn-outline { background: transparent; color: var(--text-muted); border-color: var(--border); }
-  .btn-outline:hover { color: var(--text); border-color: var(--text); background: var(--bg-alt); }
+h3.sec{
+  margin:0 0 30px;font-size:clamp(21px,2.6vw,26px);font-weight:800;color:var(--navy);
+  letter-spacing:-.025em;padding-bottom:12px;border-bottom:2px solid var(--navy);
+}
+h4.sub{
+  margin:0 0 34px;font-size:clamp(17px,2vw,20px);font-weight:700;color:var(--ink);
+  letter-spacing:-.02em;display:flex;align-items:center;gap:12px;
+}
+h4.sub::before{content:"";width:22px;height:2px;background:var(--blue);flex:none}
+h5{margin:0 0 10px;font-size:16.5px;font-weight:700;color:var(--blue);letter-spacing:-.02em}
+.block+.block{margin-top:26px}
 
-  .hero-stats {
-    display: flex; flex-direction: column; gap: 0;
-    border: 1.5px solid var(--border);
-    opacity: 0; animation: fadeIn 0.8s ease 0.9s forwards;
-  }
-  .hero-stat {
-    padding: 1.5rem 2rem; background: var(--surface);
-    border-bottom: 1px solid var(--border); text-align: right;
-  }
-  .hero-stat:last-child { border-bottom: none; }
-  .hero-stat-num { font-family: var(--display); font-size: 2.6rem; line-height: 1; color: var(--text); margin-bottom: 0.2rem; }
-  .hero-stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+/* lists */
+ul.pts{margin:0;padding:0;list-style:none}
+ul.pts li{position:relative;padding-left:15px;margin-bottom:7px;font-size:15.3px}
+ul.pts li::before{content:"";position:absolute;left:0;top:.68em;width:5px;height:5px;background:var(--navy)}
+ul.pts li.res{padding-left:22px;color:var(--steel);font-size:14.6px}
+ul.pts li.res::before{content:"→";background:none;position:absolute;left:0;top:0;width:auto;height:auto;color:var(--blue);font-weight:700}
+ul.pts li em{font-style:normal;color:var(--steel);font-size:.94em}
 
-  /* ── ABOUT ── */
-  #about { background: var(--surface); }
-  .about-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 5rem; align-items: start; }
-  .about-text p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.3rem; line-height: 1.9; }
-  .about-text strong { color: var(--text); font-weight: 700; }
-  .about-text .en {
-    font-size: 0.87rem; font-style: italic; color: var(--text-dim);
-    margin-top: 1.8rem; padding-top: 1.5rem; border-top: 1px solid var(--border-light); line-height: 1.8;
-  }
-  .about-awards { display: flex; flex-direction: column; gap: 0; }
-  .award-item {
-    padding: 1.4rem 1.6rem; border: 1px solid var(--border); border-bottom: none;
-    background: var(--bg); display: flex; gap: 1rem; align-items: flex-start;
-  }
-  .award-item:last-child { border-bottom: 1px solid var(--border); }
-  .award-emoji { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
-  .award-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 0.25rem; }
-  .award-meta { font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim); letter-spacing: 0.05em; line-height: 1.5; }
+/* figures */
+figure{margin:0}
+.fig{
+  background:var(--mist);border:1px solid var(--rule);padding:14px;
+  cursor:zoom-in;position:relative;
+}
+.fig img{margin:0 auto}
+figcaption{margin-top:9px;font-size:13px;color:var(--steel);line-height:1.55}
 
-  /* ── SKILLS ── */
-  .skills-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 1px; background: var(--border); border: 1.5px solid var(--border);
-  }
-  .skill-category { background: var(--surface); padding: 2rem; }
-  .skill-cat-title {
-    font-family: var(--display); font-size: 1.25rem; letter-spacing: 0.06em;
-    color: var(--text); margin-bottom: 1.2rem;
-    padding-bottom: 0.75rem; border-bottom: 2px solid var(--text);
-  }
-  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-  .skill-tag {
-    font-family: var(--mono); font-size: 0.7rem; padding: 0.3rem 0.7rem;
-    background: var(--bg); border: 1px solid var(--border);
-    color: var(--text-muted); letter-spacing: 0.04em; transition: all 0.15s;
-  }
-  .skill-tag:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+/* grids */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(26px,4vw,52px);align-items:start}
+.split.narrow-l{grid-template-columns:minmax(0,.78fr) minmax(0,1fr)}
+.split.wide-l{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.stack{display:grid;gap:clamp(26px,4vw,44px)}
+.sticky-col{position:sticky;top:80px}
+@media (max-width:880px){.split,.split.narrow-l,.split.wide-l{grid-template-columns:1fr}.sticky-col{position:static}}
 
-  /* ── EXPERIENCE ── */
-  #experience { background: var(--surface); }
-  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
-  .exp-col-title {
-    font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.08em;
-    margin-bottom: 2.2rem; padding-bottom: 0.8rem; border-bottom: 2px solid var(--text);
-  }
-  .timeline { position: relative; }
-  .timeline::before {
-    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
-    width: 1.5px; background: linear-gradient(to bottom, var(--text), var(--border-light));
-  }
-  .timeline-item { padding-left: 1.8rem; margin-bottom: 2.8rem; position: relative; }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -4px; top: 7px;
-    width: 9px; height: 9px; border: 2px solid var(--text); background: var(--surface);
-  }
-  .timeline-period { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; text-transform: uppercase; }
-  .timeline-role { font-size: 1rem; font-weight: 700; margin-bottom: 0.15rem; color: var(--text); }
-  .timeline-org { font-family: var(--mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.7rem; }
-  .timeline-desc { font-size: 0.86rem; color: var(--text-muted); line-height: 1.75; }
-  .timeline-gpa {
-    display: inline-block; margin-top: 0.5rem;
-    font-family: var(--mono); font-size: 0.67rem;
-    padding: 0.22rem 0.65rem; border: 1.5px solid var(--text);
-    color: var(--text); font-weight: 500;
-  }
+/* overview + contribution */
+.overview{border-top:2px solid var(--navy);padding-top:18px}
+.overview dl{margin:0;display:grid;grid-template-columns:118px 1fr;gap:9px 18px}
+.overview dt{color:var(--steel);font-size:14px;font-weight:600}
+.overview dd{margin:0;font-size:15.3px;font-weight:600}
+.overview dd span{font-weight:500;color:var(--steel)}
+.contrib{border:1.5px solid var(--navy);margin-top:30px}
+.contrib h4{margin:0;background:var(--navy);color:#fff;font-size:19px;font-weight:700;padding:11px 20px;letter-spacing:-.02em}
+.contrib-body{padding:20px 20px 22px}
+.contrib-body ul.pts li{margin-bottom:11px}
 
-  /* ── PROJECTS ── */
-  .projects-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1.5px solid var(--border); }
-  .project-card { background: var(--surface); overflow: hidden; }
-  .project-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.8rem 2.2rem; cursor: pointer; gap: 1.5rem; transition: background 0.15s;
-  }
-  .project-header:hover { background: var(--bg-alt); }
-  .project-header-left { flex: 1; }
-  .project-tag { font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.45rem; }
-  .project-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.15rem; color: var(--text); }
-  .project-name-ko { font-family: 'Noto Sans KR', sans-serif; font-size: 0.82rem; color: var(--text-muted); }
-  .project-header-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; }
-  .project-period { font-family: var(--mono); font-size: 0.67rem; color: var(--text-dim); }
-  .project-toggle {
-    width: 30px; height: 30px; border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--mono); font-size: 1.1rem; color: var(--text-muted);
-    transition: all 0.25s; flex-shrink: 0; background: var(--bg);
-  }
-  .project-card.open .project-toggle { transform: rotate(45deg); background: var(--text); color: var(--bg); border-color: var(--text); }
-  .project-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); }
-  .project-card.open .project-body { max-height: 1400px; }
-  .project-body-inner {
-    padding: 2.2rem; display: grid; grid-template-columns: 1fr 1fr;
-    gap: 2.5rem; border-top: 1px solid var(--border); background: var(--bg);
-  }
+/* tables */
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:13.2px;font-variant-numeric:tabular-nums;min-width:520px}
+caption{caption-side:bottom;padding-top:9px;font-size:12.6px;color:var(--steel);text-align:left}
+th,td{border:1px solid var(--rule);padding:6px 9px;text-align:center;white-space:nowrap}
+thead th{background:var(--mist);color:var(--navy);font-weight:700}
+thead tr.sub th{font-weight:500;color:var(--steel);font-size:12.4px}
+tbody th{background:#fff;font-weight:600;text-align:left}
+td.note{white-space:normal;text-align:left;color:var(--steel);min-width:120px}
+tr.hl td,tr.hl th{background:#F7F9FC}
+.u{text-decoration:underline;text-underline-offset:2px}
+.refs{margin:14px 0 0;padding:0;list-style:none;font-size:12.2px;color:var(--steel);line-height:1.6}
+.refs li{margin-top:4px}
 
-  .project-media { display: flex; flex-direction: column; gap: 0.8rem; }
-  .media-slot {
-    width: 100%; aspect-ratio: 16/9;
-    background: var(--bg-alt); border: 1.5px dashed var(--border);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 0.6rem; overflow: hidden;
-  }
-  .media-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .media-slot .placeholder-icon { font-size: 1.6rem; opacity: 0.2; }
-  .media-slot .placeholder-text { font-family: var(--mono); font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.06em; text-align: center; padding: 0 1.2rem; line-height: 1.6; }
-  .yt-embed { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
-  .media-caption { font-family: var(--mono); font-size: 0.58rem; color: var(--text-dim); letter-spacing: 0.05em; }
+/* resume */
+.resume{display:grid;grid-template-columns:290px 1fr;gap:clamp(28px,4.5vw,60px);align-items:start}
+@media (max-width:880px){.resume{grid-template-columns:1fr}}
+.card{background:var(--mist);border-left:4px solid var(--navy);padding:26px 24px 30px;position:sticky;top:78px}
+@media (max-width:880px){.card{position:static}}
+.card img{width:150px;margin:0 auto 16px;border:1px solid var(--rule)}
+.card .nm{text-align:center;margin:0 0 2px;font-size:23px;font-weight:800;letter-spacing:-.03em}
+.card .nm-en{text-align:center;margin:0 0 22px;font-size:14px;color:var(--steel);font-weight:600}
+.card h3{margin:0 0 10px;font-size:15px;font-weight:700;color:var(--navy);padding-bottom:6px;border-bottom:1.5px solid var(--navy)}
+.card p{margin:0 0 4px;font-size:14.2px}
+.card .grp{margin-top:24px}
+.card .deg{font-weight:700;font-size:14.6px;margin-top:12px}
+.card .sub2{color:var(--steel);font-size:13.4px;line-height:1.55}
+.card a{text-decoration:none;border-bottom:1px solid var(--rule)}
 
-  .project-info { display: flex; flex-direction: column; gap: 1.5rem; }
-  .project-award {
-    display: flex; align-items: center; gap: 0.8rem;
-    padding: 0.85rem 1.1rem; background: var(--surface); border: 1.5px solid var(--text);
-  }
-  .award-icon2 { font-size: 0.95rem; }
-  .award-text2 { font-family: var(--mono); font-size: 0.68rem; color: var(--text); letter-spacing: 0.06em; font-weight: 500; }
-  .project-desc-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.85; }
-  .project-bullets { list-style: none; }
-  .project-bullets li {
-    font-size: 0.86rem; color: var(--text-muted); line-height: 1.75;
-    padding-left: 1.1rem; position: relative; margin-bottom: 0.55rem;
-  }
-  .project-bullets li::before {
-    content: ''; position: absolute; left: 0; top: 0.65em;
-    width: 4px; height: 4px; background: var(--text); border-radius: 50%;
-  }
-  .project-stack-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 0.6rem; }
-  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .project-stack span {
-    font-family: var(--mono); font-size: 0.67rem; padding: 0.25rem 0.65rem;
-    border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
-  }
+.exp{margin:0 0 34px}
+.exp:last-child{margin-bottom:0}
+.exp h4{margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.025em;line-height:1.45}
+.exp .when{margin:0 0 10px;font-size:13.4px;color:var(--steel);font-weight:600;font-variant-numeric:tabular-nums}
+.exp .when b{color:var(--blue)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.chips span{border:1px solid var(--rule);background:var(--mist);font-size:12.8px;padding:4px 10px;color:var(--navy);font-weight:600}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:46px;padding-top:30px;border-top:1px solid var(--rule)}
+@media (max-width:680px){.two{grid-template-columns:1fr;gap:26px}}
+.two h4{margin:0 0 12px;font-size:16px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
 
-  /* ── CONTACT ── */
-  #contact { background: var(--text); color: var(--bg); border-top: none; }
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .contact-tagline {
-    font-family: var(--display); font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.0; margin-bottom: 1.8rem; letter-spacing: 0.04em; color: var(--bg);
-  }
-  .contact-tagline em { font-style: normal; color: #666; }
-  .contact-note { font-size: 0.9rem; color: #888; line-height: 1.85; }
-  #contact .section-title { color: var(--bg); }
-  #contact .section-meta { color: #555; }
-  .contact-links { display: flex; flex-direction: column; gap: 1px; }
-  .contact-link-item {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.2rem 1.5rem; background: #1a1a1a;
-    border: 1px solid #2a2a2a; text-decoration: none; transition: all 0.15s; border-bottom: none;
-  }
-  .contact-link-item:last-child { border-bottom: 1px solid #2a2a2a; }
-  .contact-link-item:hover { background: #222; border-color: #555; }
-  .contact-link-left { display: flex; align-items: center; gap: 1.2rem; }
-  .contact-link-platform { font-family: var(--mono); font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: #555; width: 64px; }
-  .contact-link-value { font-size: 0.88rem; color: #ccc; }
-  .contact-link-arrow { font-family: var(--mono); color: #444; font-size: 0.85rem; transition: color 0.15s; }
-  .contact-link-item:hover .contact-link-arrow { color: #fff; }
+/* video link */
+.linkline{margin-top:18px;font-size:14px}
+.linkline a{color:var(--blue);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(20,83,158,.4)}
+.linkline a:hover{border-bottom-color:var(--blue)}
 
-  /* ── FOOTER ── */
-  .footer-wrap { background: var(--text); border-top: 1px solid #222; }
-  footer {
-    max-width: 1080px; margin: 0 auto; padding: 1.8rem 2.5rem;
-    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-    font-family: var(--mono); font-size: 0.63rem; letter-spacing: 0.08em; color: #444;
-  }
+/* closing */
+.closing{background:var(--navy);color:#fff;text-align:center;padding:clamp(84px,14vw,150px) 0}
+.closing h2{margin:0;font-size:clamp(38px,8vw,78px);font-weight:800;letter-spacing:-.035em}
+.closing .rule{height:2px;background:rgba(255,255,255,.85);margin:26px auto 24px;max-width:min(680px,84%)}
+.closing p{margin:0 0 8px;font-size:clamp(15px,2vw,17.5px);color:rgba(255,255,255,.85)}
+.closing p.big{color:#fff;font-size:clamp(16px,2.2vw,19px)}
+.closing b{font-weight:800;border-bottom:1.5px solid rgba(255,255,255,.7);padding-bottom:1px}
+footer{background:var(--navy-deep);color:rgba(255,255,255,.6);font-size:13px;padding:20px 0;text-align:center}
+footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 780px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
-    .about-grid, .contact-grid, .exp-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .skills-grid { grid-template-columns: 1fr 1fr; }
-    .project-body-inner { grid-template-columns: 1fr; }
-    .nav-links { display: none; }
-  }
-  @media (max-width: 520px) {
-    .skills-grid { grid-template-columns: 1fr; }
-    .hero-stats { grid-template-columns: 1fr 1fr; }
-  }
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:200;background:rgba(1,20,46,.94);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:92vh;object-fit:contain;background:#fff;padding:10px}
+.lb button{position:absolute;top:16px;right:18px;background:none;border:1px solid rgba(255,255,255,.5);color:#fff;font-size:22px;line-height:1;width:40px;height:40px;cursor:pointer}
+:focus-visible{outline:2.5px solid #3E86E0;outline-offset:2px}
+@media print{.nav,.lb{display:none}.hero{min-height:auto}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="inner">
-    <span class="nav-logo">Sungjun Lee · HW Engineer</span>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+<header class="hero" id="top">
+  <div class="wrap">
+    <h1 class="wordmark">PORTFOLIO</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-name">끊임없이 배우고 노력하는,<br><strong>이성준</strong> 입니다</p>
+  </div>
+  <div class="hero-contact">
+    <h2>Contact</h2>
+    <div><b>E-mail.</b> <a href="mailto:sungjun1107@g.skku.edu">sungjun1107@g.skku.edu</a></div>
+    <div><b>Phone.</b> <a href="tel:+821093510324">(+82) 10-9351-0324</a></div>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="me" href="#top">이성준 Sungjun Lee</a>
+    <a href="#resume">Resume</a>
+    <a href="#p01">01 휴머노이드</a>
+    <a href="#p02">02 리더암</a>
+    <a href="#p03">03 사족보행</a>
+    <a class="pdf" href="Portfolio_LIG.pdf" target="_blank" rel="noopener">PDF</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-eyebrow">
-          <div class="hero-eyebrow-dot"></div>
-          <span class="hero-eyebrow-text">Hardware Design Engineer · SKKU Robotics Innovatory Lab</span>
+<!-- ══════════ RESUME ══════════ -->
+<section class="section" id="resume">
+  <div class="wrap">
+    <h3 class="sec">Resume</h3>
+    <div class="resume">
+      <aside class="card">
+        <img src="img/profile.jpg" alt="이성준 프로필 사진">
+        <p class="nm">이성준</p>
+        <p class="nm-en">Sungjun Lee</p>
+        <h3>Contact</h3>
+        <p><a href="tel:+821093510324">(+82) 10-9351-0324</a></p>
+        <p><a href="mailto:sungjun1107@g.skku.edu">sungjun1107@g.skku.edu</a></p>
+        <div class="grp">
+          <h3>Education</h3>
+          <p class="deg">성균관대학교 지능형로봇학과 석사</p>
+          <p class="sub2">Robotics Innovatory Lab (Prof. 최혁렬)<br>2025.03 – 2027.02 예정 | GPA 4.4 / 4.5</p>
+          <p class="deg">성균관대학교 기계공학부 학사</p>
+          <p class="sub2">2021.02 – 2025.02 | GPA 4.0 / 4.5</p>
         </div>
-        <h1 class="hero-name">SUNG<br>JUN<br><em>LEE</em></h1>
-        <p class="hero-tagline">로봇 하드웨어 설계 엔지니어</p>
-        <p class="hero-sub">
-          인간형·족형 로봇 메커니즘 설계 / 구동계 통합 / PCB 설계<br>
-          Mechanism Design · Actuation · System Integration
+      </aside>
+
+      <div>
+        <h4 class="sub">Experience</h4>
+
+        <article class="exp">
+          <h4>성인 크기 23 자유도 휴머노이드 로봇의 13 자유도 상체 설계 및 시스템 통합</h4>
+          <p class="when">2025.03 ~ 현재 &nbsp;|&nbsp; 기구 설계 담당, <b>팀장 (2026~)</b></p>
+          <ul class="pts">
+            <li>13 자유도 상체 설계 (양팔 5 자유도, 허리 1 자유도, 목 2 자유도, 로봇 핸드) 및 23 자유도 전신 통합 (1637 mm, 49.4 kg)</li>
+            <li>XR 기기 기반 상체 텔레오퍼레이션 구축 및 ACT 모방학습 온보드 실시간 추론 검증</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <h4>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발</h4>
+          <p class="when">2025.03 ~ 2026.02 &nbsp;|&nbsp; 기구 설계 담당, 팀원</p>
+          <ul class="pts">
+            <li>팔로워의 기구학적 특성을 모사한 One-arm, Dual-arm 리더암 (자체 제작) 설계 참여</li>
+            <li>정밀 제어를 위한 물성 오차 최소화 URDF 구축</li>
+          </ul>
+        </article>
+
+        <article class="exp">
+          <h4>소형 사족보행 로봇 설계</h4>
+          <p class="when">2023.06 ~ 2024.06 &nbsp;|&nbsp; 기구 설계 담당, Robotics Innovatory Lab 학부연구생</p>
+          <ul class="pts">
+            <li>5 kg 페이로드, 2.5 km/h 속도 연속 보행 및 계단 등반이 가능한 소형 사족보행 로봇 (717.9 mm, 24.6 kg) 설계</li>
+            <li>10:1 감속비 1단 유성기어 구동기 팩 및 부위별 링크 설계</li>
+          </ul>
+        </article>
+
+        <div class="two">
+          <div>
+            <h4>Skills &amp; Certificate</h4>
+            <ul class="pts">
+              <li>CAD / CAE: SolidWorks, Inventor, Nastran</li>
+              <li>다관절 로봇 기구 설계, 최적 설계, 도면 작성 및 공차 적용</li>
+              <li>OPIc English IH <em>(Intermediate High, 업무 활용 가능)</em></li>
+            </ul>
+            <div class="chips">
+              <span>SolidWorks</span><span>Inventor</span><span>Nastran</span><span>MATLAB</span><span>ROS 1 Noetic</span>
+            </div>
+          </div>
+          <div>
+            <h4>Awards &amp; Publication</h4>
+            <ul class="pts">
+              <li>제21회 한국로봇종합학술대회 <em>(KRoC 2026)</em></li>
+              <li class="res">RED Show 일반부문 최우수상 <em>(공동수상 · 4인)</em></li>
+              <li class="res">휴머노이드 로봇을 위한 9자유도 상체의 최적 설계 <em>(포스터 발표)</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROJECT 01 ══════════ -->
+<div class="band" id="p01">
+  <div class="band-in">
+    <span class="idx">01</span>
+    <h2>성인 크기 23 자유도 휴머노이드 로봇</h2>
+    <span class="meta">2025.03 ~ 현재</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split narrow-l">
+      <figure class="fig"><img src="img/humanoid.jpg" alt="23 자유도 휴머노이드 로봇 정면 및 측면 CAD 뷰" loading="lazy"></figure>
+      <div>
+        <div class="overview">
+          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <dl>
+            <dt>프로젝트명</dt><dd>성인 크기 23 자유도 휴머노이드 로봇의 13 자유도 상체 설계 및 시스템 통합</dd>
+            <dt>역할</dt><dd>기구 설계 담당 <span>| 팀장 (2026), 팀원 (2025)</span></dd>
+            <dt>작업 기간</dt><dd>2025.03 ~ 현재 <span>(Master Thesis)</span></dd>
+            <dt>사용 프로그램</dt><dd>SolidWorks, ROS 1 Noetic</dd>
+          </dl>
+        </div>
+        <div class="contrib">
+          <h4>Contribution</h4>
+          <div class="contrib-body">
+            <ul class="pts">
+              <li>13 자유도 상체 설계 (696.5 mm, 22.7 kg) <em>– 5 자유도 양팔, 1 자유도 허리, 2 자유도 목, 로봇 핸드</em></li>
+              <li>23 자유도 전신 시스템 통합 (1637 mm, 49.4 kg) <em>– 기존 10 자유도 하체와 결합 및 전장부 설계, 배치</em></li>
+              <li>전신 실시간 EtherCAT 통신 및 관절 제어기 구현 <em>– 기존 상·하체 제어기 통합 및 CPU 연산 병목 해결</em></li>
+              <li>XR 기기 기반 상체 실시간 텔레오퍼레이션 시스템 구축</li>
+              <li>ACT 기반 모방학습 온보드 추론 검증</li>
+              <li>프로토타입 모델 한계 분석 기반 후속 모델의 설계 진행 중 <em>– 관절 구성별 기구학적 특성 분석</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">13 자유도 상체 설계 — 관절 구성</h3>
+    <div class="split wide-l">
+      <div class="stack">
+        <figure class="fig">
+          <img src="img/arm_joints.jpg" alt="팔 관절 구성 및 주요 치수 CAD 뷰" loading="lazy">
+          <figcaption>단일 팔 관절 배치 및 주요 치수 (mm)</figcaption>
+        </figure>
+        <div class="tbl-scroll">
+          <table>
+            <caption>Required Torque (Nm) — 태스크별 관절 요구 토크</caption>
+            <thead>
+              <tr><th rowspan="2">Joint Name</th><th colspan="3">Required Torque (Nm)</th></tr>
+              <tr class="sub"><th>Pick &amp; Stow<br>Payload 1 kg, SF 1.0</th><th>Lifting Box<br>Payload 1 kg, SF 1.0</th><th>Extreme Motion<br>Payload 1 kg, SF 2.0</th></tr>
+            </thead>
+            <tbody>
+              <tr><th>Shoulder Pitch</th><td>16.99</td><td>23.49</td><td>55.36</td></tr>
+              <tr><th>Shoulder Roll</th><td>6.334</td><td>1.833</td><td>55.36</td></tr>
+              <tr><th>Shoulder Yaw</th><td>5.550</td><td>2.992</td><td>25.06</td></tr>
+              <tr><th>Elbow Pitch</th><td>10.23</td><td>13.52</td><td>25.04</td></tr>
+              <tr><th>Torso Yaw</th><td>6.652</td><td>–</td><td>105.6</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="block">
+          <h5>검증 목적에 맞춘 최소 자유도 선정</h5>
+          <ul class="pts">
+            <li>4 자유도 팔로 보행 검증, wrist yaw를 추가해 매니퓰레이션 대응</li>
+            <li>Torso, Neck 관절도 대체 불가능한 최소 자유도만 채택</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>구동기 선정</h5>
+          <ul class="pts">
+            <li>손목 자유도 확장, 핸드, 페이로드 1 kg 반영 데모 모델 기반 시뮬레이션</li>
+            <li class="res">태스크 동작 <em>(pick &amp; stow, lifting box)</em> 최대 토크 기준 Rated Torque 산정</li>
+            <li class="res">극단 자세 최대 토크에 안전계수 2 적용하여 Peak Torque 산정</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>어깨 관절 구성</h5>
+          <ul class="pts">
+            <li>Pitch-Roll-Yaw 순서 배치</li>
+            <li class="res">주 작업영역에서의 특이점 회피, 두께 절감, 직관적 동작 순서 확보</li>
+            <li>Shoulder pitch 관절의 20° offset 적용</li>
+            <li class="res">사용 빈도가 낮은 영역에 특이점 위치, 어깨 굴곡 시 사람과 유사한 동작 유도</li>
+            <li>Shoulder yaw 구동기의 elbow 측 배치</li>
+            <li class="res">구동기의 상완 하중에 대한 부담 제거, 경량 구동기 적용으로 팔 경량화</li>
+            <li>그 외 관절은 제어 난이도를 낮추기 위한 offset 없는 단순 구조</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">13 자유도 상체 설계 — 파트 설계 및 구조 검증</h3>
+    <div class="split wide-l">
+      <div class="stack">
+        <figure class="fig">
+          <img src="img/part_design.jpg" alt="위상 최적화 전후 파트 형상 비교" loading="lazy">
+          <figcaption>위상 최적화 → 설계 변수 최적화를 거친 경량 파트 형상 도출 과정</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/drawings.jpg" alt="상체 어셈블리 2D 가공 도면" loading="lazy">
+          <figcaption>전체 알루미늄 파트 가공 도면 (2D 도면 31매)</figcaption>
+        </figure>
+      </div>
+      <div class="sticky-col">
+        <div class="block">
+          <h5>파트 설계</h5>
+          <ul class="pts">
+            <li>위상 최적화 및 설계 변수 최적화</li>
+            <li class="res">강성과 가공 가능성을 동시 만족하는 경량 형상 도출</li>
+            <li>끼워 맞춤 구조 사용</li>
+            <li class="res">전단 하중을 끼워 맞춤부가 분담, 체결부 응력집중 해소 및 안정성 확보</li>
+            <li>파트별 요구 특성에 따른 소재 선택 <em>(Al 7075-T6, 6061-T6, PLA)</em></li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>구조적 안정성 검증</h5>
+          <ul class="pts">
+            <li>파트별 응력 해석 (안전계수 2.0)</li>
+            <li class="res">토크 조건: 장착되는 구동기 Peak Torque</li>
+            <li class="res">하중 조건: 데모 모델 기준 파트별 원위 질량 기반</li>
+            <li class="res">제어 오류 및 충돌, 파트별 지지 하중을 반영한 물리적 상한 기준 설정</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>가공 도면 작성 및 공차 설계</h5>
+          <ul class="pts">
+            <li>전체 알루미늄 파트 가공 도면 작성 (2D 도면 31매)</li>
+            <li>조립성과 가공성을 고려한 끼워 맞춤 공차 적용</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">13 자유도 상체 설계 — 관절별 가동범위</h3>
+    <div class="stack">
+      <figure class="fig">
+        <img src="img/rom_diagram.jpg" alt="관절별 가동범위 정의 다이어그램" loading="lazy">
+        <figcaption>Shoulder Pitch / Roll / Yaw, Elbow Pitch, Wrist Yaw, Neck Pitch / Yaw, Torso Yaw 가동범위 정의</figcaption>
+      </figure>
+
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr><th rowspan="2">Joint Name</th><th colspan="2">Shoulder Pitch</th><th colspan="2">Shoulder Roll</th><th colspan="2">Shoulder Yaw</th><th colspan="2">Elbow Pitch</th></tr>
+            <tr class="sub"><th>Flexion</th><th>Extension</th><th>Abduction</th><th>Adduction</th><th>Internal Rot.</th><th>External Rot.</th><th>Flexion</th><th>Extension</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Human<sup>[1,2]</sup> [°]</th><td>180</td><td>50</td><td>180</td><td>50</td><td>90</td><td>90</td><td>140</td><td>0</td></tr>
+            <tr><th>Proposed [°]</th><td>180</td><td>60</td><td>180</td><td class="u">0</td><td>90</td><td>90</td><td>125</td><td>0</td></tr>
+            <tr class="hl"><th>Coverage Rate</th><td>100%</td><td>100%</td><td>100%</td><td class="u">0%</td><td>100%</td><td>100%</td><td class="u">89%</td><td>100%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr><th rowspan="2">Joint Name</th><th colspan="2">Wrist Yaw</th><th colspan="2">Neck Pitch</th><th colspan="2">Neck Yaw</th><th colspan="2">Torso Yaw</th></tr>
+            <tr class="sub"><th>Pronation</th><th>Supination</th><th>Flexion</th><th>Extension</th><th>Internal Rot.</th><th>External Rot.</th><th>Internal Rot.</th><th>External Rot.</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>Human<sup>[1,2]</sup> [°]</th><td>80</td><td>80</td><td>45</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
+            <tr><th>Proposed [°]</th><td>90</td><td>90</td><td>37.5</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
+            <tr class="hl"><th>Coverage Rate</th><td>100%</td><td>100%</td><td class="u">83%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="split">
+        <figure class="fig">
+          <img src="img/rom_blender.jpg" alt="Torso yaw 보상 전후 손끝 궤적 비교" loading="lazy">
+          <figcaption>w/o Torso Yaw Compensation (green trajectory, left) · w/ Torso Yaw Compensation (blue trajectory, right)</figcaption>
+        </figure>
+        <div>
+          <h5>인체 가동범위 기준 설계</h5>
+          <ul class="pts">
+            <li>인체 관절별 가동범위를 대부분 관절에서 동일 범위 확보</li>
+            <li>어깨 내전 (Shoulder Roll Adduction)은 링크 간 간섭으로 구현 불가</li>
+            <li class="res">Torso yaw의 회전을 통한 가동범위 보상</li>
+          </ul>
+          <ul class="refs">
+            <li>[1] N. Hamilton, W. Weimar, and K. Luttgens, <i>Kinesiology: Scientific Basis of Human Motion</i>, 12th ed. New York, NY, USA: McGraw-Hill Education, 2012, Appendix B, Figure B.1, B.2, B.4, B.5.</li>
+            <li>[2] C. C. Norkin and D. J. White, <i>Measurement of Joint Motion: A Guide to Goniometry</i>, 5th ed. Philadelphia, PA, USA: F. A. Davis, 2016, Appendix A, Tables A.7, A.8 (AAOS column). Upper-limb references from [1]; neck and torso references from [2] (AAOS column), as [1] does not cover spinal motions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">23 자유도 전신 시스템 통합</h3>
+    <div class="split narrow-l">
+      <figure class="fig">
+        <img src="img/wholebody.jpg" alt="23 자유도 전신 관절 배치도" loading="lazy">
+        <figcaption>전신 관절 축 배치 (Yaw / Roll / Pitch)</figcaption>
+      </figure>
+      <div class="stack">
+        <figure class="fig">
+          <img src="img/sysdiagram.jpg" alt="전장 시스템 블록 다이어그램" loading="lazy">
+          <figcaption>전원 · 통신 계통 블록 다이어그램 (Power, Ethernet, EtherCAT, USB, TTL, I2C, PWM)</figcaption>
+        </figure>
+        <div>
+          <div class="block">
+            <h5>전신 결합</h5>
+            <ul class="pts">
+              <li>기존 10 자유도 하체와 결합한 23 자유도 휴머노이드 완성 (1,637 mm, 49.4 kg)</li>
+              <li>전원부 PCB 설계·제작 및 PC의 연산 부담과 발열을 고려한 전장부 배치</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h5>실제 로봇 구동 검증</h5>
+            <ul class="pts">
+              <li>상·하체 제어기 기반 전신 Low-level 관절 제어기 구현 (21축, 1 kHz EtherCAT)</li>
+              <li>데이터 저장 태스크 분리 및 DC 클럭 동기화 대기 루틴 추가 <em>→ 자유도 증가에 따른 통신 병목 해결</em></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">상체 텔레오퍼레이션 및 모방학습 기반 설계 검증</h3>
+    <div class="split">
+      <div class="stack">
+        <figure class="fig">
+          <img src="img/teleop.jpg" alt="XR 기기를 착용한 사용자의 실시간 상체 텔레오퍼레이션 장면" loading="lazy">
+          <figcaption>XR 기기 기반 실시간 상체 텔레오퍼레이션 (좌하단: User View)</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="img/act.jpg" alt="ACT 온보드 추론 기반 pick-and-place 자율 수행 장면" loading="lazy">
+          <figcaption>On-Board Imitation Learning Inference (ACT) — Task: Pick-and-Place, Success 7 / 9</figcaption>
+        </figure>
+      </div>
+      <div class="sticky-col">
+        <div class="block">
+          <h5>XR 기기 기반 실시간 상체 텔레오퍼레이션</h5>
+          <ul class="pts">
+            <li>별도 장비 없이 동작 모사가 가능한 XR 기기 기반 텔레오퍼레이션 채택</li>
+            <li>DLS 기반 역기구학</li>
+            <li class="res">손 위치 + 잔여 자유도로 전완 방향 정렬, 손목 회전은 직접 매핑</li>
+            <li>사용자 동작 추종 확인 및 pick-and-place 수행</li>
+            <li class="res">설계 단계에서 의도한 움직임의 실제 성립 확인</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>모방학습 적용</h5>
+          <ul class="pts">
+            <li>로봇 자체 연산을 목표로 ACT (Action Chunking with Transformers) 채택</li>
+            <li>추론 지연 80 ms 대응을 위한 비동기 추론 적용</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>학습 결과</h5>
+          <ul class="pts">
+            <li>시연 50개 학습 후 연속 테스트 성공률 80% 달성</li>
+            <li>물체 부재 시 동작 미수행으로 성공적 비전 데이터 학습 검증</li>
+          </ul>
+        </div>
+        <p class="linkline">Detailed Videos ·
+          <a href="https://youtube.com/channel/UCV3Zw336hAo9GoBYu107n7Q?si=nT9ag3qSNsnR3HVv" target="_blank" rel="noopener">YouTube 채널에서 보기</a>
         </p>
-        <p class="hero-quote">"The Only Easy Day Was Yesterday."</p>
-        <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">View Projects</a>
-          <a href="Sungjun_Lee_Resume.pdf" download class="btn btn-outline">↓ Download CV</a>
-        </div>
-      </div>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="hero-stat-num">21</div>
-          <div class="hero-stat-label">DoF Humanoid</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">4.33</div>
-          <div class="hero-stat-label">M.S. GPA / 4.5</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">5+</div>
-          <div class="hero-stat-label">Projects</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">🏆</div>
-          <div class="hero-stat-label">KRoC 2026 대상</div>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">ABOUT ME</h2>
-      <div class="section-meta"><span>소개</span><span>01 / 05</span></div>
-    </div>
-    <div class="about-grid reveal">
-      <div class="about-text">
-        <p>성균관대학교 지능형로봇학과 <strong>석사과정</strong>에 재학 중입니다. Robotics Innovatory Lab(지도교수: 최혁렬)에서 <strong>다관절 로봇의 기구 설계와 시스템 통합</strong>을 연구하고 있습니다.</p>
-        <p><strong>21-DoF 성인 크기 인간형 로봇</strong>의 상체 11-DoF 전체 설계를 주도하였으며, 구조 최적화를 통한 경량화, 48V 전원 분배 커스텀 PCB 설계, 하체와의 전신 통합을 수행했습니다.</p>
-        <p>현재는 MPC, 강화학습, 모방학습을 활용한 이족보행 실험과 XR 기반 텔레오퍼레이션 시스템 개발을 진행 중입니다.</p>
-        <p class="en">M.S. student at Sungkyunkwan University. Specializing in mechanism design for humanoid & quadruped robots — from linkage design and actuator selection to custom PCB layout and full-system integration.</p>
-      </div>
-      <div class="about-awards">
-        <div class="award-item">
-          <span class="award-emoji">🏆</span>
-          <div>
-            <div class="award-title">First Prize — KRoC 2026</div>
-            <div class="award-meta">대상 (KIRIA 회장상) · RED Show · Pyeongchang, Feb. 2026</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <span class="award-emoji">📄</span>
-          <div>
-            <div class="award-title">KRoC 2026 논문 발표</div>
-            <div class="award-meta">Optimal Design of a 9-DoF Upper Body for a Humanoid Robot · First Author · Poster</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <span class="award-emoji">🎓</span>
-          <div>
-            <div class="award-title">BK21 Graduate Research Assistant</div>
-            <div class="award-meta">Brain Korea 21 FOUR Program · Jan. 2026 — Present</div>
-          </div>
-        </div>
-        <div class="award-item">
-          <span class="award-emoji">🤖</span>
-          <div>
-            <div class="award-title">Undergraduate Research Mentor</div>
-            <div class="award-meta">손목·손 메커니즘 설계/제어 지도 · Jan. 2026 — Present</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- ══════════ PROJECT 02 ══════════ -->
+<div class="band" id="p02">
+  <div class="band-in">
+    <span class="idx">02</span>
+    <h2>F/T 센서 기반 힘 피드백 리더암 개발</h2>
+    <span class="meta">2025.03 ~ 2026.02</span>
   </div>
-</section>
+</div>
 
-<!-- SKILLS -->
-<section id="skills">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">SKILLS</h2>
-      <div class="section-meta"><span>기술 스택</span><span>02 / 05</span></div>
-    </div>
-    <div class="skills-grid reveal">
-      <div class="skill-category">
-        <div class="skill-cat-title">CAD · 설계</div>
-        <div class="skill-tags">
-          <span class="skill-tag">SolidWorks</span><span class="skill-tag">Autodesk Inventor</span>
-          <span class="skill-tag">Nastran (FEA)</span><span class="skill-tag">Linkage Design</span>
-          <span class="skill-tag">Structural Optimization</span><span class="skill-tag">GD&T</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Actuation · 구동계</div>
-        <div class="skill-tags">
-          <span class="skill-tag">BLDC Motor</span><span class="skill-tag">Planetary Gear</span>
-          <span class="skill-tag">Tendon Drive</span><span class="skill-tag">Actuator Pack Design</span>
-          <span class="skill-tag">Torque Analysis</span><span class="skill-tag">Bezier Gait</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Electronics · 전장</div>
-        <div class="skill-tags">
-          <span class="skill-tag">Custom PCB Design</span><span class="skill-tag">Power Dist. (48V)</span>
-          <span class="skill-tag">F/T Sensor</span><span class="skill-tag">IMU</span>
-          <span class="skill-tag">Encoder</span><span class="skill-tag">Arduino</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Software · 소프트웨어</div>
-        <div class="skill-tags">
-          <span class="skill-tag">ROS (Noetic)</span><span class="skill-tag">URDF / Gazebo</span>
-          <span class="skill-tag">C / C++</span><span class="skill-tag">MATLAB</span>
-          <span class="skill-tag">Kalman Filter</span><span class="skill-tag">Digital Twin</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Control · 제어</div>
-        <div class="skill-tags">
-          <span class="skill-tag">MPC</span><span class="skill-tag">Reinforcement Learning</span>
-          <span class="skill-tag">Imitation Learning</span><span class="skill-tag">Bipedal Locomotion</span>
-          <span class="skill-tag">XR Teleoperation</span>
-        </div>
-      </div>
-      <div class="skill-category">
-        <div class="skill-cat-title">Fabrication · 제작</div>
-        <div class="skill-tags">
-          <span class="skill-tag">3D Printing</span><span class="skill-tag">CNC Machining</span>
-          <span class="skill-tag">System Integration</span><span class="skill-tag">DFM / DFA</span>
-          <span class="skill-tag">Tolerance Analysis</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">EXPERIENCE</h2>
-      <div class="section-meta"><span>경력 / 학력</span><span>03 / 05</span></div>
-    </div>
-    <div class="exp-grid reveal">
-      <div>
-        <div class="exp-col-title">Work Experience · 경력</div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-period">Mar. 2025 — Present</div>
-            <div class="timeline-role">Master Student · HW Design Engineer</div>
-            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
-            <div class="timeline-desc">21-DoF 인간형 로봇 개발 팀 리드 (2026~). 상체 11-DoF 기구 설계, 커스텀 PCB, 전신 통합. 이족보행 실험 및 XR 텔레오퍼레이션 개발 중.</div>
-            <span class="timeline-gpa">GPA 4.33 / 4.5</span>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Jan. 2026 — Present</div>
-            <div class="timeline-role">Undergraduate Research Mentor</div>
-            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
-            <div class="timeline-desc">손목·손 메커니즘 설계 및 제어에 관해 학부생 지도. 기계 설계, C++, 텔레오퍼레이션 기술 멘토링.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Sep. 2025 — Dec. 2025</div>
-            <div class="timeline-role">Graduate Teaching Assistant</div>
-            <div class="timeline-org">School of Mechanical Engineering, SKKU</div>
-            <div class="timeline-desc">진동·동역학 시스템 설계 실험 TA. Arduino·LEGO EV3 농구 로봇 개발 프로젝트 지도.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Jun. 2023 — Oct. 2024</div>
-            <div class="timeline-role">Undergraduate Researcher</div>
-            <div class="timeline-org">Robotics Innovatory Lab, SKKU</div>
-            <div class="timeline-desc">소형 4족 로봇 개발 및 관성 모멘트 추정 방법론 연구.</div>
-          </div>
-        </div>
+<section class="section">
+  <div class="wrap">
+    <div class="split narrow-l">
+      <div class="stack">
+        <figure class="fig"><img src="img/leader_top.jpg" alt="팔로워 로봇 암과 One-arm 리더암 비교" loading="lazy"></figure>
+        <figure class="fig"><img src="img/leader_bot.jpg" alt="Dual-arm 리더암 및 사용자 착용 구성" loading="lazy"></figure>
       </div>
       <div>
-        <div class="exp-col-title">Education · 학력</div>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-period">Mar. 2025 — Present</div>
-            <div class="timeline-role">M.S. in Intelligent Robotics</div>
-            <div class="timeline-org">Sungkyunkwan University · 성균관대학교</div>
-            <div class="timeline-desc">지능형로봇학과 석사과정. Robotics Innovatory Lab (지도교수: 최혁렬). 다관절 로봇 기구 설계 연구.</div>
-            <span class="timeline-gpa">GPA 4.33 / 4.5 · 15 / 24 cr.</span>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Feb. 2021 — Feb. 2025</div>
-            <div class="timeline-role">B.S. in Mechanical Engineering</div>
-            <div class="timeline-org">Sungkyunkwan University · 성균관대학교</div>
-            <div class="timeline-desc">기계공학부 학사. 전체 GPA 4.0 / 4.5, 전공 GPA 4.0 / 4.5.</div>
-            <span class="timeline-gpa">GPA 4.0 / 4.5 · 132 cr.</span>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-period">Feb. 2026</div>
-            <div class="timeline-role">KRoC 2026 — 1st Author & Presenter</div>
-            <div class="timeline-org">Korea Robotics Society · 평창</div>
-            <div class="timeline-desc">"Optimal Design of a 9-DoF Upper Body for a Humanoid Robot" — 포스터 발표. 인간형 로봇 상체 최적 설계 방법론 제안.</div>
+        <div class="overview">
+          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <dl>
+            <dt>프로젝트명</dt><dd>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발</dd>
+            <dt>역할</dt><dd>기구 설계 담당 <span>| 팀원</span></dd>
+            <dt>작업 기간</dt><dd>2025.03 ~ 2026.02</dd>
+            <dt>사용 프로그램</dt><dd>SolidWorks</dd>
+          </dl>
+        </div>
+        <div class="contrib">
+          <h4>Contribution</h4>
+          <div class="contrib-body">
+            <ul class="pts">
+              <li>One-arm 및 Dual-arm 리더암 설계 참여 <em>– 팔로워 (RB-10, 두산 M609) 기구학적 특성 모사</em></li>
+              <li>정밀 리더암 URDF 구축 <em>– 모터 관성 정보 반영, 3D 프린팅 내부 채움 조절로 실물과의 물성 오차 최소화</em></li>
+              <li>엔드 이펙터 제작 및 팔로워 실물, URDF 통합 <em>– UMI 그리퍼, D405 카메라, F/T 센서</em></li>
+              <li>KRoC 2026 RED Show 일반부문 최우수상 수상 <em>(한국로봇산업진흥원장상, 공동수상 · 4인)</em></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -569,266 +634,252 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">PROJECTS</h2>
-      <div class="section-meta"><span>포트폴리오</span><span>04 / 05</span></div>
-    </div>
-    <div class="projects-list reveal">
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">리더암 설계 및 URDF 구축</h3>
+    <div class="stack">
+      <figure class="fig">
+        <img src="img/urdf.jpg" alt="리더암과 팔로워의 DH 파라미터 정의 도면" loading="lazy">
+        <figcaption>One-arm · Dual-arm 리더암 (좌) 과 팔로워 (우) 의 링크 파라미터 정의</figcaption>
+      </figure>
 
-      <div class="project-card" id="proj-1">
-        <div class="project-header" onclick="toggleProject('proj-1')">
-          <div class="project-header-left">
-            <div class="project-tag">Humanoid Robot · Team Lead (2026)</div>
-            <div class="project-name">21-DoF Adult-Sized Humanoid Robot</div>
-            <div class="project-name-ko">성인 크기 21자유도 인간형 로봇</div>
-          </div>
-          <div class="project-header-right">
-            <span class="project-period">Mar. 2025 — Present</span>
-            <div class="project-toggle">+</div>
-          </div>
+      <div class="split">
+        <div>
+          <h5>시스템 목표</h5>
+          <ul class="pts">
+            <li>팔로워의 접촉력 방향과 크기, 그리퍼 파지 정도를 사용자에게 전달</li>
+            <li class="res">충돌로 인한 기구적 파손 예방 및 모방학습을 위한 고품질 데이터 확보</li>
+          </ul>
         </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-media">
-              <div class="media-slot">
-                <!-- <img src="images/humanoid_1.jpg" alt="Humanoid Robot"> -->
-                <span class="placeholder-icon">📷</span>
-                <span class="placeholder-text">사진 추가 — images/humanoid_1.jpg</span>
-              </div>
-              <span class="media-caption">// &lt;img src="images/humanoid_1.jpg"&gt; 로 교체</span>
-              <div class="media-slot">
-                <!-- <iframe class="yt-embed" src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-                <span class="placeholder-icon">▶</span>
-                <span class="placeholder-text">YouTube 영상 — VIDEO_ID 교체</span>
-              </div>
-              <span class="media-caption">// YouTube iframe으로 교체</span>
-            </div>
-            <div class="project-info">
-              <div class="project-award">
-                <span class="award-icon2">🏆</span>
-                <span class="award-text2">KRoC 2026 대상 (KIRIA 회장상) · RED Show</span>
-              </div>
-              <div class="project-desc-text">21-DoF 성인 크기 인간형 로봇. 4-DoF 팔 ×2, 1-DoF 토르소, 2-DoF 목으로 구성된 상체 11-DoF 설계 주도. 10-DoF 하체와 통합하여 전신 시스템 완성.</div>
-              <ul class="project-bullets">
-                <li>구조 최적화를 통한 상체 경량화 설계</li>
-                <li>48V → 다중 전압 분배 커스텀 PCB 설계</li>
-                <li>MPC / RL / Imitation Learning 이족보행 실험 진행 중</li>
-                <li>손목·8-DoF 로봇 손 통합 및 XR 텔레오퍼레이션 개발 계획</li>
-              </ul>
-              <div><div class="project-stack-label">Stack</div>
-              <div class="project-stack"><span>SolidWorks</span><span>Custom PCB</span><span>ROS</span><span>URDF</span><span>MPC</span><span>RL</span><span>48V Power</span></div></div>
-            </div>
-          </div>
+        <div>
+          <h5>리더암 설계와 URDF 구축</h5>
+          <ul class="pts">
+            <li>팔로워의 기구학적 특성 <em>(DH 파라미터)</em>을 모사한 리더암 설계 참여</li>
+            <li>모터 관성 값, 체결 부품 질량 반영 및 3D 프린팅 내부채움 조절</li>
+            <li class="res">정밀 제어를 위한 물성 오차 최소화 리더암 URDF 구축 (전체 질량 오차 4.4%)</li>
+            <li>UMI 그리퍼, D405 카메라, F/T 센서 구성 엔드이펙터 제작 및 추가</li>
+          </ul>
         </div>
       </div>
 
-      <div class="project-card" id="proj-2">
-        <div class="project-header" onclick="toggleProject('proj-2')">
-          <div class="project-header-left">
-            <div class="project-tag">Teleoperation · Imitation Learning</div>
-            <div class="project-name">Force Feedback Leader Arm</div>
-            <div class="project-name-ko">F/T 센서 기반 포스 피드백 리더 암</div>
-          </div>
-          <div class="project-header-right">
-            <span class="project-period">Mar. 2025 — Feb. 2026</span>
-            <div class="project-toggle">+</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-media">
-              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">Leader Arm 사진 추가</span></div>
-              <span class="media-caption">// images/leader_arm.jpg</span>
-              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">데모 영상 추가</span></div>
-              <span class="media-caption">// YouTube embed</span>
-            </div>
-            <div class="project-info">
-              <div class="project-desc-text">접촉이 많은 작업에서 비전 전용 텔레오퍼레이션의 감각 한계를 극복하기 위해 F/T 센서 기반 포스 피드백 리더 암 시스템 개발.</div>
-              <ul class="project-bullets">
-                <li>Leader/Follower 시스템 URDF 모델 개발 — 정밀 키네마틱 동기화</li>
-                <li>F/T 센서·카메라·그리퍼를 Follower URDF에 통합 — 멀티모달 데이터 수집</li>
-                <li>디지털 트윈 기반 정확한 시스템 표현 구현</li>
-              </ul>
-              <div><div class="project-stack-label">Stack</div>
-              <div class="project-stack"><span>F/T Sensor</span><span>URDF</span><span>ROS</span><span>Imitation Learning</span><span>Kinematics</span></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="tbl-scroll">
+        <table>
+          <caption>Table 1. One-arm Leader-Follower DH Parameters (Scale of 0.5 : 1)</caption>
+          <thead>
+            <tr><th>i</th><th>θ<sub>i</sub> (°)</th><th>d<sub>i</sub><sup>l</sup> (mm)</th><th>d<sub>i</sub><sup>f</sup> (mm)</th><th>a<sub>i</sub><sup>l</sup> (mm)</th><th>a<sub>i</sub><sup>f</sup> (mm)</th><th>α<sub>i</sub> (°)</th><th>Ratio</th><th>Error (mm)</th><th>Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>q<sub>1</sub></td><td>135.2</td><td>197.0</td><td>0</td><td>0</td><td>− 90</td><td>–</td><td>–</td><td class="note">베이스 장착 (제외)</td></tr>
+            <tr><td>2</td><td>q<sub>2</sub> − 90</td><td>0</td><td>0</td><td>306.4</td><td>612.7</td><td>0</td><td>0.5000</td><td>0.000</td><td class="note">–</td></tr>
+            <tr><td>3</td><td>q<sub>3</sub></td><td>0</td><td>0</td><td>285.1</td><td>570.2</td><td>0</td><td>0.5000</td><td>+ 0.005</td><td class="note">–</td></tr>
+            <tr><td>4</td><td>q<sub>4</sub> + 90</td><td>− 78.12</td><td>− 156.2</td><td>0</td><td>0</td><td>90</td><td>0.5000</td><td>+ 0.001</td><td class="note">–</td></tr>
+            <tr><td>5</td><td>q<sub>5</sub></td><td>62.58</td><td>117.2</td><td>0</td><td>0</td><td>− 90</td><td>0.5341</td><td>+ 4.000</td><td class="note">구동기 치수 제약</td></tr>
+            <tr><td>6</td><td>q<sub>6</sub></td><td>− 57.86</td><td>− 115.3</td><td>0</td><td>0</td><td>0</td><td>–</td><td>–</td><td class="note">툴 인터페이스 (제외)</td></tr>
+          </tbody>
+        </table>
       </div>
 
-      <div class="project-card" id="proj-3">
-        <div class="project-header" onclick="toggleProject('proj-3')">
-          <div class="project-header-left">
-            <div class="project-tag">Legged Robot · Actuator Design</div>
-            <div class="project-name">Small-Sized Quadruped Robot</div>
-            <div class="project-name-ko">소형 4족 보행 로봇</div>
-          </div>
-          <div class="project-header-right">
-            <span class="project-period">Jun. 2023 — Jun. 2024</span>
-            <div class="project-toggle">+</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-media">
-              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">4족 로봇 사진 추가</span></div>
-              <span class="media-caption">// images/quadruped.jpg</span>
-              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">보행 데모 영상 추가</span></div>
-              <span class="media-caption">// YouTube embed</span>
-            </div>
-            <div class="project-info">
-              <div class="project-desc-text">계단 등반 및 고속 이동이 가능한 30kg급 4족 보행 로봇. 베지어 곡선 기반 관절 토크 최적화 및 액추에이터 팩 설계.</div>
-              <ul class="project-bullets">
-                <li>계단 등반 가능, 2.5 km/h 고속 이동, 5 kg 페이로드</li>
-                <li>베지어 곡선 보행 궤적으로 관절 토크·각속도 최적화</li>
-                <li>11:1 감속비 1단 유성기어 탑재 액추에이터 팩 설계</li>
-              </ul>
-              <div><div class="project-stack-label">Stack</div>
-              <div class="project-stack"><span>SolidWorks</span><span>Planetary Gear</span><span>Bezier Curve</span><span>Torque Analysis</span><span>BLDC</span></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="tbl-scroll">
+        <table>
+          <caption>Table 2. Dual-arm Leader-Follower DH Parameters (Scale of 0.6 : 1)</caption>
+          <thead>
+            <tr><th>i</th><th>θ<sub>i</sub> (°)</th><th>d<sub>i</sub><sup>l</sup> (mm)</th><th>d<sub>i</sub><sup>f</sup> (mm)</th><th>a<sub>i</sub><sup>l</sup> (mm)</th><th>a<sub>i</sub><sup>f</sup> (mm)</th><th>α<sub>i</sub> (°)</th><th>Ratio</th><th>Error (mm)</th><th>Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>q<sub>1</sub></td><td>55.50</td><td>152.5</td><td>0</td><td>0</td><td>− 90</td><td>–</td><td>–</td><td class="note">베이스 장착 (제외)</td></tr>
+            <tr><td>2</td><td>q<sub>2</sub> − 90</td><td>0</td><td>0</td><td>246.6</td><td>411.0</td><td>0</td><td>0.6000</td><td>0.000</td><td class="note">–</td></tr>
+            <tr><td>3</td><td>q<sub>3</sub> + 90</td><td>3.600</td><td>6.000</td><td>0</td><td>0</td><td>90</td><td>0.6000</td><td>0.000</td><td class="note">–</td></tr>
+            <tr><td>4</td><td>q<sub>4</sub></td><td>220.7</td><td>368.0</td><td>0</td><td>0</td><td>− 90</td><td>0.5997</td><td>− 0.100</td><td class="note">–</td></tr>
+            <tr><td>5</td><td>q<sub>5</sub></td><td>0</td><td>0</td><td>0</td><td>0</td><td>90</td><td>–</td><td>0.000</td><td class="note">–</td></tr>
+            <tr><td>6</td><td>q<sub>6</sub></td><td>92.6</td><td>121.0</td><td>0</td><td>0</td><td>0</td><td>–</td><td>–</td><td class="note">툴 인터페이스 (제외)</td></tr>
+          </tbody>
+        </table>
       </div>
-
-      <div class="project-card" id="proj-4">
-        <div class="project-header" onclick="toggleProject('proj-4')">
-          <div class="project-header-left">
-            <div class="project-tag">Research · Dynamic Modeling</div>
-            <div class="project-name">MoI Estimation for Precision Dynamic Control</div>
-            <div class="project-name-ko">정밀 동역학 제어를 위한 관성 모멘트 추정</div>
-          </div>
-          <div class="project-header-right">
-            <span class="project-period">Jul. 2024 — Oct. 2024</span>
-            <div class="project-toggle">+</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-media">
-              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">측정 시스템 사진 추가</span></div>
-              <span class="media-caption">// images/moi.jpg</span>
-              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">실험 영상 추가</span></div>
-              <span class="media-caption">// YouTube embed</span>
-            </div>
-            <div class="project-info">
-              <div class="project-desc-text">CAD 모델과 실제 제작 부품 간의 관성 특성 불일치를 해소하기 위한 관성 모멘트(MoI) 추정 시스템 개발.</div>
-              <ul class="project-bullets">
-                <li>4개 로드셀 힘 분포 수학적 모델링 → 물리적 특성 매핑</li>
-                <li>3단계 칼만 필터로 총 무게, CoG, Ixx·Iyy·Izz 정밀 추정</li>
-                <li>CAD 모델과 실제 부품 간 동역학적 불일치 보정</li>
-              </ul>
-              <div><div class="project-stack-label">Stack</div>
-              <div class="project-stack"><span>Kalman Filter</span><span>Load Cell</span><span>MATLAB</span><span>CoG Estimation</span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card" id="proj-5">
-        <div class="project-header" onclick="toggleProject('proj-5')">
-          <div class="project-header-left">
-            <div class="project-tag">Manipulator · Autonomous Navigation</div>
-            <div class="project-name">Mobile Manipulator for Medical Assistance</div>
-            <div class="project-name-ko">의료 보조용 모바일 매니퓰레이터</div>
-          </div>
-          <div class="project-header-right">
-            <span class="project-period">Mar. 2024 — Oct. 2024</span>
-            <div class="project-toggle">+</div>
-          </div>
-        </div>
-        <div class="project-body">
-          <div class="project-body-inner">
-            <div class="project-media">
-              <div class="media-slot"><span class="placeholder-icon">📷</span><span class="placeholder-text">매니퓰레이터 사진 추가</span></div>
-              <span class="media-caption">// images/manipulator.jpg</span>
-              <div class="media-slot"><span class="placeholder-icon">▶</span><span class="placeholder-text">동작 시연 영상 추가</span></div>
-              <span class="media-caption">// YouTube embed</span>
-            </div>
-            <div class="project-info">
-              <div class="project-desc-text">Arduino 기반 3D 프린팅 모바일 매니퓰레이터. 3-DoF 팔과 자율 라인 트래킹 시스템을 통합한 의료 보조 로봇.</div>
-              <ul class="project-bullets">
-                <li>자율 주행 → 200g 페이로드 Pick & Place 전 사이클 검증</li>
-                <li>조작 오류율 10% 미만, 초기 설계 사양 전항목 충족</li>
-                <li>3-DoF 매니퓰레이터 + 자율 라인 트래킹 완전 통합</li>
-              </ul>
-              <div><div class="project-stack-label">Stack</div>
-              <div class="project-stack"><span>Arduino</span><span>3D Printing</span><span>3-DoF Arm</span><span>Line Tracking</span></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <div class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">CONTACT</h2>
-      <div class="section-meta"><span>연락처</span><span>05 / 05</span></div>
-    </div>
-    <div class="contact-grid reveal">
+<!-- ══════════ PROJECT 03 ══════════ -->
+<div class="band" id="p03">
+  <div class="band-in">
+    <span class="idx">03</span>
+    <h2>소형 사족보행 로봇 설계</h2>
+    <span class="meta">2023.06 ~ 2024.06</span>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split narrow-l">
+      <div class="stack">
+        <figure class="fig"><img src="img/quad_iso.jpg" alt="소형 사족보행 로봇 전체 CAD 뷰" loading="lazy"></figure>
+        <figure class="fig"><img src="img/quad_side.jpg" alt="사족보행 로봇 측면 구조" loading="lazy"></figure>
+      </div>
       <div>
-        <p class="contact-tagline">함께<br>로봇을<br><em>만들어봅시다.</em></p>
-        <p class="contact-note">협업 제안, 채용 문의, 연구 토론 등 어떤 연락이든 환영합니다.<br><br>Open to collaboration, research discussions, and job opportunities.</p>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:sungjun1107@g.skku.edu" class="contact-link-item">
-          <div class="contact-link-left"><span class="contact-link-platform">Email</span><span class="contact-link-value">sungjun1107@g.skku.edu</span></div>
-          <span class="contact-link-arrow">↗</span>
-        </a>
-        <a href="https://github.com/jun117" target="_blank" class="contact-link-item">
-          <div class="contact-link-left"><span class="contact-link-platform">GitHub</span><span class="contact-link-value">github.com/jun117</span></div>
-          <span class="contact-link-arrow">↗</span>
-        </a>
-        <a href="tel:+821093510324" class="contact-link-item">
-          <div class="contact-link-left"><span class="contact-link-platform">Phone</span><span class="contact-link-value">(+82) 10-9351-0324</span></div>
-          <span class="contact-link-arrow">↗</span>
-        </a>
-        <a href="Sungjun Lee_Resume.pdf" download class="contact-link-item">
-          <div class="contact-link-left"><span class="contact-link-platform">CV / PDF</span><span class="contact-link-value">Download Resume</span></div>
-          <span class="contact-link-arrow">↓</span>
-        </a>
+        <div class="overview">
+          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <dl>
+            <dt>프로젝트명</dt><dd>소형 사족보행 로봇 설계</dd>
+            <dt>역할</dt><dd>기구 설계 담당 <span>| Robotics Innovatory Lab 학부연구생</span></dd>
+            <dt>작업 기간</dt><dd>2023.06 ~ 2024.06</dd>
+            <dt>사용 프로그램</dt><dd>Inventor, SolidWorks, Nastran, MATLAB</dd>
+          </dl>
+        </div>
+        <div class="contrib">
+          <h4>Contribution</h4>
+          <div class="contrib-body">
+            <ul class="pts">
+              <li>소형 사족보행 로봇 설계 <em>– 717.9 × 469.2 × 423.5 mm (L*W*H), 24.6 kg, 2.5 km/h 속도 연속 보행</em></li>
+              <li>Bezier 곡선 보행 궤적 기반 목표 스펙 산출 <em>– 모터 선정 및 감속비 결정</em></li>
+              <li>QDD 구동기 팩 설계 <em>– 목표 토크 대응 10:1 감속비 1단 유성기어열</em></li>
+              <li>상용 로봇 몸통-다리 비율 분석 기반 링크 길이 선정 및 계단 등반 조건 기구학적 검증</li>
+              <li>위상 최적화 및 설계 변수 최적화를 통한 링크 경량화</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="footer-wrap">
-  <footer>
-    <span>© 2026 Sungjun Lee</span>
-    <span>Hardware Design Engineer · SKKU Robotics Innovatory Lab</span>
-    <span>Suwon, South Korea</span>
-  </footer>
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">10:1 감속비 구동기 팩 설계</h3>
+    <div class="split">
+      <figure class="fig">
+        <img src="img/actuator.jpg" alt="구동기 팩 단면도 및 유성기어열 구성" loading="lazy">
+        <figcaption>구동기 팩 단면 — 하우징 · 출력 베어링 · 자기 엔코더 · 모터 드라이버 (상) / 유성기어열 구성 (하)</figcaption>
+      </figure>
+      <div class="sticky-col">
+        <div class="block">
+          <h5>목표 스펙 계산을 위한 해석 코드 작성</h5>
+          <ul class="pts">
+            <li>Bezier 곡선 보행 궤적에서 속도별 관절 목표 스펙을 계산하는 MATLAB 해석 코드 작성</li>
+            <li>몸통 650 mm, 5 kg 페이로드 포함 30 kg 조건 해석</li>
+            <li class="res">2.5 km/h에서 최대 토크 27.55 Nm, 각속도 18.45 rad/s</li>
+            <li>구동기 팩 크기와 감속기 제작 가능성을 종합해 최종 스펙 확정</li>
+          </ul>
+        </div>
+        <div class="block">
+          <h5>QDD 방식의 구동기 팩 설계</h5>
+          <ul class="pts">
+            <li>저감속비 채택으로 역구동성 확보</li>
+            <li class="res">전류 기반 토크 추정 및 착지 충격 흡수</li>
+            <li>10:1 1단 유성기어열을 적용한 구동기 <em>(⌀146 × 76.2 mm, 822 g)</em></li>
+            <li class="res">Rated Torque / Speed: 30 Nm / 28.27 rad/s</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h3 class="sec">다리 링크 설계 및 최적화</h3>
+    <div class="stack">
+      <figure class="fig">
+        <img src="img/leg_link.jpg" alt="다리 링크 위상 최적화 전후 형상" loading="lazy">
+        <figcaption>위상 최적화 및 설계 변수 최적화를 통한 상·하 링크 경량 형상 도출</figcaption>
+      </figure>
+      <div class="split">
+        <div class="stack">
+          <figure class="fig">
+            <img src="img/leg_joint.jpg" alt="Hip, Knee, Scapular 관절 배치" loading="lazy">
+            <figcaption>Hip · Knee · Scapular 관절 배치</figcaption>
+          </figure>
+          <figure class="fig">
+            <img src="img/leg_flex.jpg" alt="다리 굴곡 및 신전 가동범위" loading="lazy">
+            <figcaption>Flexion [−25°] / Extension [155°]</figcaption>
+          </figure>
+        </div>
+        <div>
+          <div class="block">
+            <h5>다리 링크 목표 길이 설정과 최종 제원</h5>
+            <ul class="pts">
+              <li>계단 등반이 검증된 상용 로봇의 몸통 대비 다리 신장 비율 <em>(평균 0.69)</em> 기반 목표 설정</li>
+              <li>최종 다리 링크 각 250 mm, 가동각 25°~155°, hip 관절 간 거리 513.95 mm</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h5>계단 등반 가능성 검증</h5>
+            <ul class="pts">
+              <li>다리 수직 가동 범위 380 mm 확보</li>
+              <li class="res">계단 등반 시 충분한 단 높이 및 너비 통과 여유 확보</li>
+            </ul>
+          </div>
+          <div class="block">
+            <h5>관성 모멘트 최소화와 링크 최적 설계</h5>
+            <ul class="pts">
+              <li>구동기를 최대한 몸통 가까이 배치. 각 관절별 전용 하우징과 knee의 4절 링크 구조</li>
+              <li class="res">높은 제어 성능을 위한 관성 모멘트 최소화</li>
+              <li>위상 최적화 및 설계 변수 최적화로 강성과 가공 가능성을 동시 만족하는 형상 도출</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CLOSING ══════════ -->
+<section class="closing">
+  <div class="wrap">
+    <h2>THANK YOU</h2>
+    <div class="rule"></div>
+    <p>끝까지 봐주셔서 감사합니다.</p>
+    <p class="big">이런 경험을 바탕으로 <b>LIG D&amp;A의 일원</b>으로 <b>안전하고 편리한 미래</b>를 만들어가고 싶습니다.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    이성준 · <a href="mailto:sungjun1107@g.skku.edu">sungjun1107@g.skku.edu</a> · <a href="tel:+821093510324">(+82) 10-9351-0324</a>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="이미지 확대 보기">
+  <button type="button" aria-label="닫기">&times;</button>
+  <img src="" alt="">
 </div>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+(function(){
+  var lb = document.getElementById('lb'),
+      lbImg = lb.querySelector('img'),
+      last = null;
 
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 70) current = s.id; });
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === `#${current}`));
+  document.querySelectorAll('.fig').forEach(function(f){
+    var img = f.querySelector('img');
+    if(!img) return;
+    f.setAttribute('tabindex','0');
+    f.setAttribute('role','button');
+    f.setAttribute('aria-label', (img.alt || '이미지') + ' 확대 보기');
+    function open(){
+      last = f;
+      lbImg.src = img.currentSrc || img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('on');
+      document.body.style.overflow = 'hidden';
+      lb.querySelector('button').focus();
+    }
+    f.addEventListener('click', open);
+    f.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(); }
+    });
   });
 
-  function toggleProject(id) {
-    const card = document.getElementById(id);
-    const isOpen = card.classList.contains('open');
-    document.querySelectorAll('.project-card.open').forEach(c => c.classList.remove('open'));
-    if (!isOpen) card.classList.add('open');
+  function close(){
+    lb.classList.remove('on');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+    if(last) last.focus();
   }
+  lb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && lb.classList.contains('on')) close();
+  });
+})();
 </script>
 </body>
 </html>
