@@ -96,10 +96,10 @@ h3.sec{
   letter-spacing:-.025em;padding-bottom:10px;border-bottom:2px solid var(--navy);
 }
 h4.sub{
-  margin:0 0 28px;font-size:clamp(17px,1.9vw,19px);font-weight:700;color:var(--ink);
-  letter-spacing:-.02em;display:flex;align-items:center;gap:12px;
+  margin:0 0 26px;font-size:clamp(17px,1.9vw,19.5px);font-weight:800;color:var(--navy);
+  letter-spacing:-.02em;display:flex;align-items:center;gap:14px;
 }
-h4.sub::before{content:"";width:22px;height:2px;background:var(--blue);flex:none}
+h4.sub::after{content:"";flex:1;height:2px;background:var(--navy)}
 h5{margin:0 0 9px;font-size:16.8px;font-weight:700;color:var(--blue);letter-spacing:-.02em}
 .block+.block{margin-top:22px}
 
@@ -128,7 +128,7 @@ figcaption{margin-top:10px;font-size:13.4px;color:var(--steel);line-height:1.55}
 @media (max-width:880px){.split,.split.narrow-l,.split.wide-l{grid-template-columns:1fr}.sticky-col{position:static}}
 
 /* overview + contribution */
-.overview{border-top:2px solid var(--navy);padding-top:18px}
+.overview{padding-top:0}
 .overview dl{margin:0;display:grid;grid-template-columns:126px 1fr;gap:9px 18px}
 .overview dt{color:var(--steel);font-size:14.2px;font-weight:600}
 .overview dd{margin:0;font-size:15.8px;font-weight:600}
@@ -176,7 +176,8 @@ tr.hl td,tr.hl th{background:#F7F9FC}
 .chips span{border:1px solid var(--rule);background:var(--mist);font-size:12.8px;padding:4px 10px;color:var(--navy);font-weight:600}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:38px;padding-top:26px;border-top:1px solid var(--rule)}
 @media (max-width:680px){.two{grid-template-columns:1fr;gap:26px}}
-.two h4{margin:0 0 11px;font-size:16.2px;font-weight:800;color:var(--navy);letter-spacing:-.02em}
+.two h4{margin:0 0 13px;font-size:16.2px;font-weight:800;color:var(--navy);letter-spacing:-.02em;display:flex;align-items:center;gap:12px}
+.two h4::after{content:"";flex:1;height:1.5px;background:var(--navy)}
 
 /* video link */
 .linkline{margin-top:16px;font-size:14.6px}
@@ -317,10 +318,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       <figure class="fig"><img src="img/humanoid.jpg" alt="23 자유도 휴머노이드 로봇 정면 및 측면 CAD 뷰" loading="lazy"></figure>
       <div>
         <div class="overview">
-          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <h4 class="sub">Overview</h4>
           <dl>
             <dt>프로젝트명</dt><dd>성인 크기 23 자유도 휴머노이드 로봇의 13 자유도 상체 설계 및 시스템 통합</dd>
-            <dt>역할</dt><dd>기구 설계 담당 <span>| 팀장 (2026), 팀원 (2025)</span></dd>
+            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| 팀장 (2026), 팀원 (2025)</span></dd>
             <dt>작업 기간</dt><dd>2025.03 ~ 현재 <span>(Master Thesis)</span></dd>
             <dt>사용 프로그램</dt><dd>SolidWorks, ROS 1 Noetic</dd>
           </dl>
@@ -597,10 +598,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       </div>
       <div>
         <div class="overview">
-          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <h4 class="sub">Overview</h4>
           <dl>
             <dt>프로젝트명</dt><dd>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발</dd>
-            <dt>역할</dt><dd>기구 설계 담당 <span>| 팀원</span></dd>
+            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| 팀원</span></dd>
             <dt>작업 기간</dt><dd>2025.03 ~ 2026.02</dd>
             <dt>사용 프로그램</dt><dd>SolidWorks</dd>
           </dl>
@@ -703,10 +704,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       </div>
       <div>
         <div class="overview">
-          <h4 class="sub" style="margin-bottom:20px">Overview</h4>
+          <h4 class="sub">Overview</h4>
           <dl>
             <dt>프로젝트명</dt><dd>소형 사족보행 로봇 설계</dd>
-            <dt>역할</dt><dd>기구 설계 담당 <span>| Robotics Innovatory Lab 학부연구생</span></dd>
+            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| Robotics Innovatory Lab 학부연구생</span></dd>
             <dt>작업 기간</dt><dd>2023.06 ~ 2024.06</dd>
             <dt>사용 프로그램</dt><dd>Inventor, SolidWorks, Nastran, MATLAB</dd>
           </dl>
