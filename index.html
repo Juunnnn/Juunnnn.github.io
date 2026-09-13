@@ -80,7 +80,7 @@ a{color:inherit}
 }
 .nav a:hover,.nav a:focus-visible{color:#fff;background:rgba(255,255,255,.12)}
 .nav .me{font-weight:800;color:#fff;margin-right:auto;padding-left:0;font-size:14.6px}
-.nav .pdf{border:1px solid rgba(255,255,255,.45)}
+.nav .pdf{border:1px solid rgba(255,255,255,.45);margin-left:6px}
 
 /* ── section frame ──────────────────── */
 .section{padding:clamp(44px,5.5vw,76px) 0}
@@ -185,12 +185,31 @@ tr.hl td,tr.hl th{background:#F7F9FC}
 .linkline a:hover{border-bottom-color:var(--blue)}
 
 /* closing */
-.closing{background:var(--navy);color:#fff;text-align:center;padding:clamp(70px,10vw,116px) 0}
-.closing h2{margin:0;font-size:clamp(34px,6.5vw,62px);font-weight:800;letter-spacing:-.035em}
-.closing .rule{height:2px;background:rgba(255,255,255,.85);margin:26px auto 24px;max-width:min(680px,84%)}
+.closing{background:var(--navy);color:#fff;text-align:center;padding:clamp(96px,16vw,180px) 0}
+.closing h2{margin:0;font-size:clamp(42px,9vw,110px);font-weight:800;letter-spacing:-.04em;line-height:.95}
+.closing .rule{height:2.5px;background:rgba(255,255,255,.85);margin:clamp(22px,3vw,34px) auto clamp(20px,2.6vw,28px);max-width:min(820px,86%)}
 .closing p{margin:0 0 8px;font-size:clamp(15px,1.7vw,17px);color:rgba(255,255,255,.85)}
 .closing p.big{color:#fff;font-size:clamp(16px,1.9vw,18.5px)}
 .closing b{font-weight:800;border-bottom:1.5px solid rgba(255,255,255,.7);padding-bottom:1px}
+.dl{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:clamp(30px,4vw,44px)}
+.dl a{text-decoration:none;font-size:14.5px;font-weight:600;padding:11px 22px;border:1px solid rgba(255,255,255,.55);color:#fff}
+.dl a:hover{background:#fff;color:var(--navy);border-color:#fff}
+.card .kv{margin:0;display:grid;grid-template-columns:56px 1fr;gap:6px 10px;font-size:13.2px;line-height:1.55}
+.card .kv dt{color:var(--steel);font-weight:600}
+.card .kv dd{margin:0;word-break:break-all}
+.card .thesis{margin-top:7px;padding-left:9px;border-left:2px solid var(--rule)}
+.exp .tools{margin:0 0 10px;font-size:13px;color:var(--steel)}
+.exp h4 .jump{float:right;font-size:12.5px;font-weight:600;color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(20,83,158,.35);margin-left:14px;white-space:nowrap}
+.exp h4 .jump:hover{border-bottom-color:var(--blue)}
+h4.sub.mt{margin-top:44px}
+dl.tl{margin:0;display:grid;grid-template-columns:118px 1fr;gap:14px 20px}
+dl.tl dt{color:var(--steel);font-size:13.4px;font-weight:600;font-variant-numeric:tabular-nums;padding-top:1px}
+dl.tl dd{margin:0;font-size:15.2px}
+dl.tl dd b{font-weight:700}
+dl.tl dd em{font-style:normal;color:var(--steel);font-size:14px}
+dl.tl dd span{display:block;margin-top:3px;color:var(--steel);font-size:14px}
+dl.tl.skills dt{color:var(--blue);font-weight:700}
+@media (max-width:680px){dl.tl{grid-template-columns:1fr;gap:4px}dl.tl dt{margin-top:12px}.exp h4 .jump{float:none;display:block;margin:6px 0 0}}
 footer{background:var(--navy-deep);color:rgba(255,255,255,.6);font-size:14px;padding:20px 0;text-align:center}
 footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
@@ -225,7 +244,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <a href="#p01">01 휴머노이드</a>
     <a href="#p02">02 리더암</a>
     <a href="#p03">03 사족보행</a>
-    <a class="pdf" href="Portfolio_LIG.pdf" target="_blank" rel="noopener">PDF</a>
+    <a class="pdf" href="Resume_SungjunLee.pdf" download>이력서 PDF</a>
+    <a class="pdf" href="Portfolio_LIG.pdf" download>포트폴리오 PDF</a>
   </div>
 </nav>
 
@@ -237,67 +257,97 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
       <aside class="card">
         <img src="img/profile.jpg" alt="이성준 프로필 사진">
         <p class="nm">이성준</p>
-        <p class="nm-en">Sungjun Lee</p>
-        <h3>Contact</h3>
-        <p><a href="tel:+821093510324">(+82) 10-9351-0324</a></p>
-        <p><a href="mailto:sungjun1107@g.skku.edu">sungjun1107@g.skku.edu</a></p>
+        <p class="nm-en">기구 설계 엔지니어 · Sungjun Lee</p>
+
+        <h3>인적사항</h3>
+        <dl class="kv">
+          <dt>연락처</dt><dd><a href="tel:+821093510324">(+82) 10-9351-0324</a></dd>
+          <dt>이메일</dt><dd><a href="mailto:sungjun1107@g.skku.edu">sungjun1107@g.skku.edu</a><br><a href="mailto:sungjun1107@naver.com">sungjun1107@naver.com</a></dd>
+          <dt>생년월일</dt><dd>2001.11.07</dd>
+          <dt>병역</dt><dd>미필 – 전문연구요원 신규 편입 희망</dd>
+        </dl>
+
         <div class="grp">
-          <h3>Education</h3>
-          <p class="deg">성균관대학교 지능형로봇학과 석사</p>
-          <p class="sub2">Robotics Innovatory Lab (Prof. 최혁렬)<br>2025.03 – 2027.02 예정 | GPA 4.4 / 4.5</p>
+          <h3>학력</h3>
+          <p class="deg">성균관대학교 대학원 지능형로봇학과 석사과정</p>
+          <p class="sub2">2025.03 - 2027.02 졸업 예정<br>Robotics Innovatory Lab (지도교수 최혁렬) · 학점 4.4 / 4.5</p>
+          <p class="sub2 thesis">석사 학위 논문 (예정)<br>「성인 크기 23자유도 휴머노이드 로봇의 13자유도 상체 설계 및 시스템 통합」</p>
           <p class="deg">성균관대학교 기계공학부 학사</p>
-          <p class="sub2">2021.02 – 2025.02 | GPA 4.0 / 4.5</p>
+          <p class="sub2">2021.02 - 2025.02<br>학점 4.0 / 4.5 · 전공 4.0 / 4.5</p>
         </div>
       </aside>
 
       <div>
-        <h4 class="sub">Experience</h4>
+        <h4 class="sub">프로젝트 경험</h4>
 
         <article class="exp">
-          <h4>성인 크기 23 자유도 휴머노이드 로봇의 13 자유도 상체 설계 및 시스템 통합</h4>
-          <p class="when">2025.03 ~ 현재 &nbsp;|&nbsp; 기구 설계 담당, <b>팀장 (2026~)</b></p>
+          <h4>성인 크기 23자유도 휴머노이드 로봇 개발 <a class="jump" href="#p01">자세히 보기 ↓</a></h4>
+          <p class="when">2025.03 - 현재 &nbsp;|&nbsp; 상체 기구 설계 및 전신 통합 담당, <b>팀장 (2026 ~)</b></p>
+          <p class="tools">SolidWorks (Simulation), Altium Designer, ROS 1 Noetic</p>
           <ul class="pts">
-            <li>13 자유도 상체 설계 (양팔 5 자유도, 허리 1 자유도, 목 2 자유도, 로봇 핸드) 및 23 자유도 전신 통합 (1637 mm, 49.4 kg)</li>
-            <li>XR 기기 기반 상체 텔레오퍼레이션 구축 및 ACT 모방학습 온보드 실시간 추론 검증</li>
+            <li>13자유도 상체 설계 (696.5 mm, 22.7 kg) <em>– 5자유도 양팔, 1자유도 허리, 2자유도 목, 로봇 핸드</em></li>
+            <li>23자유도 전신 시스템 통합 (1,637 mm, 49.4 kg) <em>– 기존 10자유도 하체와 결합 및 전장부 설계, 배치</em></li>
+            <li>전신 실시간 EtherCAT 통신 및 관절 제어기 구현 <em>– 기존 상·하체 제어기 통합 및 CPU 연산 병목 해결</em></li>
+            <li>XR 기기 기반 상체 실시간 텔레오퍼레이션 시스템 구축 및 ACT 기반 모방학습 온보드 추론 검증</li>
+            <li>프로토타입 모델 한계 분석 기반 후속 모델의 설계 진행 중 <em>– 관절 구성별 기구학적 특성 분석</em></li>
           </ul>
         </article>
 
         <article class="exp">
-          <h4>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발</h4>
-          <p class="when">2025.03 ~ 2026.02 &nbsp;|&nbsp; 기구 설계 담당, 팀원</p>
+          <h4>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발 <a class="jump" href="#p02">자세히 보기 ↓</a></h4>
+          <p class="when">2025.03 - 2026.02 &nbsp;|&nbsp; 기구 설계 담당, <b>KRoC 2026 RED Show 일반부문 최우수상</b></p>
+          <p class="tools">SolidWorks</p>
           <ul class="pts">
-            <li>팔로워의 기구학적 특성을 모사한 One-arm, Dual-arm 리더암 (자체 제작) 설계 참여</li>
-            <li>정밀 제어를 위한 물성 오차 최소화 URDF 구축</li>
+            <li>One-arm 및 Dual-arm 리더암 설계 참여 <em>– 팔로워 (RB10-1300, 두산 M0609) 기구학적 특성 모사</em></li>
+            <li>정밀 리더암 URDF 구축 <em>– 모터 관성 정보 반영, 3D 프린팅 내부 채움 조절로 실물과의 물성 오차 최소화</em></li>
+            <li>엔드 이펙터 제작 및 팔로워 실물, URDF 통합 <em>– UMI 그리퍼, D405 카메라, F/T 센서</em></li>
           </ul>
         </article>
 
         <article class="exp">
-          <h4>소형 사족보행 로봇 설계</h4>
-          <p class="when">2023.06 ~ 2024.06 &nbsp;|&nbsp; 기구 설계 담당, Robotics Innovatory Lab 학부연구생</p>
+          <h4>소형 사족보행 로봇 개발 <a class="jump" href="#p03">자세히 보기 ↓</a></h4>
+          <p class="when">2023.06 - 2024.06 &nbsp;|&nbsp; 기구 설계 담당, 학부연구생</p>
+          <p class="tools">Inventor, SolidWorks, Nastran, MATLAB</p>
           <ul class="pts">
-            <li>5 kg 페이로드, 2.5 km/h 속도 연속 보행 및 계단 등반이 가능한 소형 사족보행 로봇 (717.9 mm, 24.6 kg) 설계</li>
-            <li>10:1 감속비 1단 유성기어 구동기 팩 및 부위별 링크 설계</li>
+            <li>소형 사족보행 로봇 설계 <em>– 717.9 × 469.2 × 423.5 mm (L×W×H), 24.6 kg, 5 kg 페이로드 조건에서 2.5 km/h 연속 보행 목표</em></li>
+            <li>Bezier 곡선 보행 궤적 기반 목표 스펙 산출 <em>– 모터 선정 및 감속비 결정</em></li>
+            <li>QDD 구동기 팩 설계 <em>– 목표 토크 대응 10:1 감속비 1단 유성기어열</em></li>
+            <li>상용 로봇 몸통-다리 비율 분석 기반 링크 길이 선정 및 계단 등반 조건 기구학적 검증</li>
+            <li>위상 최적화 및 설계 변수 최적화를 통한 링크 경량화</li>
           </ul>
         </article>
 
-        <div class="two">
-          <div>
-            <h4>Skills &amp; Certificate</h4>
-            <ul class="pts">
-              <li>CAD / CAE: SolidWorks, Inventor, Nastran</li>
-              <li>다관절 로봇 기구 설계, 최적 설계, 도면 작성 및 공차 적용</li>
-              <li>OPIc English IH <em>(Intermediate High, 업무 활용 가능)</em></li>
-            </ul>
-          </div>
-          <div>
-            <h4>Awards &amp; Publication</h4>
-            <ul class="pts">
-              <li>제21회 한국로봇종합학술대회 <em>(KRoC 2026)</em></li>
-              <li class="res">RED Show 일반부문 최우수상 <em>(공동수상 · 4인)</em></li>
-              <li class="res">휴머노이드 로봇을 위한 9자유도 상체의 최적 설계 <em>(포스터 발표)</em></li>
-            </ul>
-          </div>
-        </div>
+        <h4 class="sub mt">수상</h4>
+        <dl class="tl">
+          <dt>2026.02</dt>
+          <dd><b>제21회 한국로봇종합학술대회 RED Show 일반부문 최우수상</b> <em>한국로봇산업진흥원장상 · 공동 수상, 5인</em>
+            <span>실물 리더암과 F/T 센서·엔드 이펙터, Gazebo 기반 실시간 피드백 시연</span></dd>
+        </dl>
+
+        <h4 class="sub mt">학회 발표</h4>
+        <dl class="tl">
+          <dt>2026.02</dt>
+          <dd><b>휴머노이드 로봇을 위한 9자유도 상체의 최적 설계</b> <em>제21회 한국로봇종합학술대회 · 제1저자, 포스터 발표</em></dd>
+          <dt>2026.02</dt>
+          <dd><b>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암</b> <em>제21회 한국로봇종합학술대회 · 공저자</em></dd>
+        </dl>
+
+        <h4 class="sub mt">보유 기술</h4>
+        <dl class="tl skills">
+          <dt>CAD / CAE</dt><dd>SolidWorks (Simulation), Inventor, Nastran</dd>
+          <dt>설계 / 제작</dt><dd>다관절 로봇 기구 설계, 최적 설계, 가공 도면 작성 및 공차 적용, 3D 프린팅, 조립 및 전장 배치</dd>
+          <dt>어학</dt><dd>OPIc English IH – Intermediate High (2026.03) <em>· 외국인 팀원과 영어로 업무 진행</em></dd>
+        </dl>
+
+        <h4 class="sub mt">경험 및 활동</h4>
+        <dl class="tl">
+          <dt>2026.01 - 현재</dt>
+          <dd><b>연구실 행정 담당</b> <em>BK21 FOUR 사업 · 연구실 실적 조사 및 학회 참가 예산 집행 관리</em></dd>
+          <dt>2025.09 - 2025.12</dt>
+          <dd><b>교육 조교</b> <em>성균관대학교 기계공학부 · 진동 및 동적 시스템 설계 실습</em></dd>
+          <dt>2022.02 - 2024.11</dt>
+          <dd><b>기계공학부 학생회</b> <em>비서국원 및 비서국장 (2024) · 학부 주요 행사 준비 및 운영 실무</em></dd>
+        </dl>
       </div>
     </div>
   </div>
@@ -307,8 +357,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 <div class="band" id="p01">
   <div class="band-in">
     <span class="idx">01</span>
-    <h2>성인 크기 23 자유도 휴머노이드 로봇</h2>
-    <span class="meta">2025.03 ~ 현재</span>
+    <h2>23자유도 휴머노이드 로봇 개발</h2>
+    <span class="meta">2025.03 - 현재</span>
   </div>
 </div>
 
@@ -320,18 +370,18 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <div class="overview">
           <h4 class="sub">Overview</h4>
           <dl>
-            <dt>프로젝트명</dt><dd>성인 크기 23 자유도 휴머노이드 로봇의 13 자유도 상체 설계 및 시스템 통합</dd>
-            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| 팀장 (2026), 팀원 (2025)</span></dd>
-            <dt>작업 기간</dt><dd>2025.03 ~ 현재 <span>(Master Thesis)</span></dd>
-            <dt>사용 프로그램</dt><dd>SolidWorks, ROS 1 Noetic</dd>
+            <dt>프로젝트명</dt><dd>성인 크기 23자유도 휴머노이드 로봇 개발</dd>
+            <dt>역할</dt><dd>상체 기구 설계 및 전신 통합 담당&nbsp;<span>| 팀장 (2026 ~)</span></dd>
+            <dt>작업 기간</dt><dd>2025.03 - 현재 <span>(Master's Thesis)</span></dd>
+            <dt>사용 프로그램</dt><dd>SolidWorks (Simulation), Altium Designer, ROS 1 Noetic</dd>
           </dl>
         </div>
         <div class="contrib">
           <h4>Contribution</h4>
           <div class="contrib-body">
             <ul class="pts">
-              <li>13 자유도 상체 설계 (696.5 mm, 22.7 kg) <em>– 5 자유도 양팔, 1 자유도 허리, 2 자유도 목, 로봇 핸드</em></li>
-              <li>23 자유도 전신 시스템 통합 (1637 mm, 49.4 kg) <em>– 기존 10 자유도 하체와 결합 및 전장부 설계, 배치</em></li>
+              <li>13자유도 상체 설계 (696.5 mm, 22.7 kg) <em>– 5자유도 양팔, 1자유도 허리, 2자유도 목, 로봇 핸드</em></li>
+              <li>23자유도 전신 시스템 통합 (1,637 mm, 49.4 kg) <em>– 기존 10자유도 하체와 결합 및 전장부 설계, 배치</em></li>
               <li>전신 실시간 EtherCAT 통신 및 관절 제어기 구현 <em>– 기존 상·하체 제어기 통합 및 CPU 연산 병목 해결</em></li>
               <li>XR 기기 기반 상체 실시간 텔레오퍼레이션 시스템 구축</li>
               <li>ACT 기반 모방학습 온보드 추론 검증</li>
@@ -346,7 +396,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 – 관절 구성</h3>
+    <h3 class="sec">13자유도 상체 설계 – 관절 구성</h3>
     <div class="split wide-l">
       <div class="stack">
         <figure class="fig">
@@ -356,7 +406,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <table>
             <thead>
               <tr><th rowspan="2">Joint Name</th><th colspan="3">Required Torque (Nm)</th></tr>
-              <tr class="sub"><th>Pick &amp; Stow<br>Payload 1 kg, SF 1.0</th><th>Lifting Box<br>Payload 1 kg, SF 1.0</th><th>Extreme Motion<br>Payload 1 kg, SF 2.0</th></tr>
+              <tr class="sub"><th>Pick &amp; Stow<br>Payload: 1 kg, SF: 1.0</th><th>Lifting Box<br>Payload: 1 kg, SF: 1.0</th><th>Extreme Motion<br>Payload: 1 kg, SF: 2.0</th></tr>
             </thead>
             <tbody>
               <tr><th>Shoulder Pitch</th><td>16.99</td><td>23.49</td><td>55.36</td></tr>
@@ -372,7 +422,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <div class="block">
           <h5>검증 목적에 맞춘 최소 자유도 선정</h5>
           <ul class="pts">
-            <li>4 자유도 팔로 보행 검증, wrist yaw를 추가해 매니퓰레이션 대응</li>
+            <li>4자유도 팔로 보행 검증, wrist yaw를 추가해 매니퓰레이션 대응</li>
             <li>Torso, Neck 관절도 대체 불가능한 최소 자유도만 채택</li>
           </ul>
         </div>
@@ -381,14 +431,14 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <ul class="pts">
             <li>손목 자유도 확장, 핸드, 페이로드 1 kg 반영 데모 모델 기반 시뮬레이션</li>
             <li class="res">태스크 동작 <em>(pick &amp; stow, lifting box)</em> 최대 토크 기준 Rated Torque 산정</li>
-            <li class="res">극단 자세 최대 토크에 안전계수 2 적용하여 Peak Torque 산정</li>
+            <li class="res">극단 자세 최대 토크에 안전계수 2를 적용하여 Peak Torque 산정</li>
           </ul>
         </div>
         <div class="block">
           <h5>어깨 관절 구성</h5>
           <ul class="pts">
             <li>Pitch-Roll-Yaw 순서 배치</li>
-            <li class="res">주 작업영역에서의 특이점 회피, 두께 절감, 직관적 동작 순서 확보</li>
+            <li class="res">주 작업 영역에서의 특이점 회피, 두께 절감, 직관적 동작 순서 확보</li>
             <li>Shoulder pitch 관절의 20° offset 적용</li>
             <li class="res">사용 빈도가 낮은 영역에 특이점 위치, 어깨 굴곡 시 사람과 유사한 동작 유도</li>
             <li>Shoulder yaw 구동기의 elbow 측 배치</li>
@@ -403,7 +453,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 – 파트 설계 및 구조 검증</h3>
+    <h3 class="sec">13자유도 상체 설계 – 파트 설계 및 구조 검증</h3>
     <div class="split wide-l">
       <div class="stack">
         <figure class="fig">
@@ -419,8 +469,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <ul class="pts">
             <li>위상 최적화 및 설계 변수 최적화</li>
             <li class="res">강성과 가공 가능성을 동시 만족하는 경량 형상 도출</li>
-            <li>끼워 맞춤 구조 사용</li>
-            <li class="res">전단 하중을 끼워 맞춤부가 분담, 체결부 응력집중 해소 및 안정성 확보</li>
+            <li>끼워맞춤 구조 사용</li>
+            <li class="res">전단 하중을 끼워맞춤부가 분담, 체결부 응력 집중 해소 및 안정성 확보</li>
             <li>파트별 요구 특성에 따른 소재 선택 <em>(Al 7075-T6, 6061-T6, PLA)</em></li>
           </ul>
         </div>
@@ -429,7 +479,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <ul class="pts">
             <li>파트별 응력 해석 (안전계수 2.0)</li>
             <li class="res">토크 조건: 장착되는 구동기 Peak Torque</li>
-            <li class="res">하중 조건: 데모 모델 기준 파트별 원위 질량 기반</li>
+            <li class="res">하중 조건: 데모 모델 기준 파트가 지지하는 말단 측 질량</li>
             <li class="res">제어 오류 및 충돌, 파트별 지지 하중을 반영한 물리적 상한 기준 설정</li>
           </ul>
         </div>
@@ -437,7 +487,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <h5>가공 도면 작성 및 공차 설계</h5>
           <ul class="pts">
             <li>전체 알루미늄 파트 가공 도면 작성 (2D 도면 31매)</li>
-            <li>조립성과 가공성을 고려한 끼워 맞춤 공차 적용</li>
+            <li>조립성과 가공성을 고려한 끼워맞춤 공차 적용</li>
           </ul>
         </div>
       </div>
@@ -447,7 +497,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">13 자유도 상체 설계 – 관절별 가동범위</h3>
+    <h3 class="sec">13자유도 상체 설계 – 관절별 가동범위</h3>
     <div class="stack">
       <figure class="fig">
         <img src="img/rom_diagram.jpg" alt="관절별 가동범위 정의 다이어그램" loading="lazy">
@@ -457,11 +507,11 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <table>
           <thead>
             <tr><th rowspan="2">Joint Name</th><th colspan="2">Shoulder Pitch</th><th colspan="2">Shoulder Roll</th><th colspan="2">Shoulder Yaw</th><th colspan="2">Elbow Pitch</th></tr>
-            <tr class="sub"><th>Flexion</th><th>Extension</th><th>Abduction</th><th>Adduction</th><th>Internal Rot.</th><th>External Rot.</th><th>Flexion</th><th>Extension</th></tr>
+            <tr class="sub"><th>Flexion</th><th>Extension</th><th>Abduction</th><th>Adduction</th><th>Internal Rotation</th><th>External Rotation</th><th>Flexion</th><th>Extension</th></tr>
           </thead>
           <tbody>
-            <tr><th>Human<sup>[1,2]</sup> [°]</th><td>180</td><td>50</td><td>180</td><td>50</td><td>90</td><td>90</td><td>140</td><td>0</td></tr>
-            <tr><th>Proposed [°]</th><td>180</td><td>60</td><td>180</td><td class="u">0</td><td>90</td><td>90</td><td>125</td><td>0</td></tr>
+            <tr><th>Human<sup>[1, 2]</sup> [°]</th><td>180</td><td>50</td><td>180</td><td>50</td><td>90</td><td>90</td><td>140</td><td>0</td></tr>
+            <tr><th>Proposed [°]</th><td>180</td><td>60</td><td>180</td><td class="u">0</td><td>90</td><td>90</td><td class="u">125</td><td>0</td></tr>
             <tr class="hl"><th>Coverage Rate</th><td>100%</td><td>100%</td><td>100%</td><td class="u">0%</td><td>100%</td><td>100%</td><td class="u">89%</td><td>100%</td></tr>
           </tbody>
         </table>
@@ -471,11 +521,11 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <table>
           <thead>
             <tr><th rowspan="2">Joint Name</th><th colspan="2">Wrist Yaw</th><th colspan="2">Neck Pitch</th><th colspan="2">Neck Yaw</th><th colspan="2">Torso Yaw</th></tr>
-            <tr class="sub"><th>Pronation</th><th>Supination</th><th>Flexion</th><th>Extension</th><th>Internal Rot.</th><th>External Rot.</th><th>Internal Rot.</th><th>External Rot.</th></tr>
+            <tr class="sub"><th>Pronation</th><th>Supination</th><th>Flexion</th><th>Extension</th><th>Left Rotation</th><th>Right Rotation</th><th>Left Rotation</th><th>Right Rotation</th></tr>
           </thead>
           <tbody>
-            <tr><th>Human<sup>[1,2]</sup> [°]</th><td>80</td><td>80</td><td>45</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
-            <tr><th>Proposed [°]</th><td>90</td><td>90</td><td>37.5</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
+            <tr><th>Human<sup>[1, 2]</sup> [°]</th><td>80</td><td>80</td><td>45</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
+            <tr><th>Proposed [°]</th><td>90</td><td>90</td><td class="u">37.5</td><td>45</td><td>60</td><td>60</td><td>45</td><td>45</td></tr>
             <tr class="hl"><th>Coverage Rate</th><td>100%</td><td>100%</td><td class="u">83%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
           </tbody>
         </table>
@@ -505,7 +555,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
 <section class="section">
   <div class="wrap">
-    <h3 class="sec">23 자유도 전신 시스템 통합</h3>
+    <h3 class="sec">전신 시스템 통합</h3>
     <div class="split narrow-l">
       <figure class="fig">
         <img src="img/wholebody.jpg" alt="23 자유도 전신 관절 배치도" loading="lazy">
@@ -518,8 +568,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <div class="block">
             <h5>전신 결합</h5>
             <ul class="pts">
-              <li>기존 10 자유도 하체와 결합한 23 자유도 휴머노이드 완성 (1,637 mm, 49.4 kg)</li>
-              <li>전원부 PCB 설계·제작 및 PC의 연산 부담과 발열을 고려한 전장부 배치</li>
+              <li>기존 10자유도 하체와 결합한 23자유도 휴머노이드 완성 (1,637 mm, 49.4 kg)</li>
+              <li>전원부 PCB 설계, 제작 및 PC의 연산 부담과 발열을 고려한 전장부 배치</li>
             </ul>
           </div>
           <div class="block">
@@ -561,14 +611,14 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <div class="block">
           <h5>모방학습 적용</h5>
           <ul class="pts">
-            <li>로봇 자체 연산을 목표로 ACT (Action Chunking with Transformers) 채택</li>
+            <li>온보드 연산을 목표로 ACT (Action Chunking with Transformers) 채택</li>
             <li>추론 지연 80 ms 대응을 위한 비동기 추론 적용</li>
           </ul>
         </div>
         <div class="block">
           <h5>학습 결과</h5>
           <ul class="pts">
-            <li>시연 50개 학습 후 연속 테스트 성공률 80% 달성</li>
+            <li>시연 데이터 50개로 학습 후 연속 테스트 성공률 80% 달성</li>
             <li>물체 부재 시 동작 미수행으로 성공적 비전 데이터 학습 검증</li>
           </ul>
         </div>
@@ -585,7 +635,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
   <div class="band-in">
     <span class="idx">02</span>
     <h2>F/T 센서 기반 힘 피드백 리더암 개발</h2>
-    <span class="meta">2025.03 ~ 2026.02</span>
+    <span class="meta">2025.03 - 2026.02</span>
   </div>
 </div>
 
@@ -602,7 +652,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <dl>
             <dt>프로젝트명</dt><dd>고품질 시연 데이터 수집을 위한 F/T 센서 기반 힘 피드백 리더암 개발</dd>
             <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| 팀원</span></dd>
-            <dt>작업 기간</dt><dd>2025.03 ~ 2026.02</dd>
+            <dt>작업 기간</dt><dd>2025.03 - 2026.02</dd>
             <dt>사용 프로그램</dt><dd>SolidWorks</dd>
           </dl>
         </div>
@@ -610,10 +660,10 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <h4>Contribution</h4>
           <div class="contrib-body">
             <ul class="pts">
-              <li>One-arm 및 Dual-arm 리더암 설계 참여 <em>– 팔로워 (RB-10, 두산 M609) 기구학적 특성 모사</em></li>
+              <li>One-arm 및 Dual-arm 리더암 설계 참여 <em>– 팔로워 (RB10-1300, 두산 M0609) 기구학적 특성 모사</em></li>
               <li>정밀 리더암 URDF 구축 <em>– 모터 관성 정보 반영, 3D 프린팅 내부 채움 조절로 실물과의 물성 오차 최소화</em></li>
               <li>엔드 이펙터 제작 및 팔로워 실물, URDF 통합 <em>– UMI 그리퍼, D405 카메라, F/T 센서</em></li>
-              <li>KRoC 2026 RED Show 일반부문 최우수상 수상 <em>(한국로봇산업진흥원장상, 공동수상 · 4인)</em></li>
+              <li>KRoC 2026 RED Show 일반부문 최우수상 <em>(한국로봇산업진흥원장상, 공동 수상, 5인)</em></li>
             </ul>
           </div>
         </div>
@@ -651,15 +701,15 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
       <div class="tbl-scroll">
         <table>
-          <caption>Table 1. One-arm Leader-Follower DH Parameters (Scale of 0.5 : 1)</caption>
+          <caption>Table 1. One-arm Leader-Follower DH Parameters (Scale of 0.5:1)</caption>
           <thead>
             <tr><th>i</th><th>θ<sub>i</sub> (°)</th><th>d<sub>i</sub><sup>l</sup> (mm)</th><th>d<sub>i</sub><sup>f</sup> (mm)</th><th>a<sub>i</sub><sup>l</sup> (mm)</th><th>a<sub>i</sub><sup>f</sup> (mm)</th><th>α<sub>i</sub> (°)</th><th>Ratio</th><th>Error (mm)</th><th>Note</th></tr>
           </thead>
           <tbody>
             <tr><td>1</td><td>q<sub>1</sub></td><td>135.2</td><td>197.0</td><td>0</td><td>0</td><td>− 90</td><td>–</td><td>–</td><td class="note">베이스 장착 (제외)</td></tr>
-            <tr><td>2</td><td>q<sub>2</sub> − 90</td><td>0</td><td>0</td><td>306.4</td><td>612.7</td><td>0</td><td>0.5000</td><td>0.000</td><td class="note">–</td></tr>
-            <tr><td>3</td><td>q<sub>3</sub></td><td>0</td><td>0</td><td>285.1</td><td>570.2</td><td>0</td><td>0.5000</td><td>+ 0.005</td><td class="note">–</td></tr>
-            <tr><td>4</td><td>q<sub>4</sub> + 90</td><td>− 78.12</td><td>− 156.2</td><td>0</td><td>0</td><td>90</td><td>0.5000</td><td>+ 0.001</td><td class="note">–</td></tr>
+            <tr><td>2</td><td>q<sub>2</sub> − 90</td><td>0</td><td>0</td><td>306.4</td><td>612.7</td><td>0</td><td>0.5000</td><td>+ 0.050</td><td class="note">–</td></tr>
+            <tr><td>3</td><td>q<sub>3</sub></td><td>0</td><td>0</td><td>285.1</td><td>570.2</td><td>0</td><td>0.5000</td><td>0.000</td><td class="note">–</td></tr>
+            <tr><td>4</td><td>q<sub>4</sub> + 90</td><td>− 78.12</td><td>− 156.2</td><td>0</td><td>0</td><td>90</td><td>0.5000</td><td>− 0.020</td><td class="note">–</td></tr>
             <tr><td>5</td><td>q<sub>5</sub></td><td>62.58</td><td>117.2</td><td>0</td><td>0</td><td>− 90</td><td>0.5341</td><td>+ 4.000</td><td class="note">구동기 치수 제약</td></tr>
             <tr><td>6</td><td>q<sub>6</sub></td><td>− 57.86</td><td>− 115.3</td><td>0</td><td>0</td><td>0</td><td>–</td><td>–</td><td class="note">툴 인터페이스 (제외)</td></tr>
           </tbody>
@@ -668,7 +718,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 
       <div class="tbl-scroll">
         <table>
-          <caption>Table 2. Dual-arm Leader-Follower DH Parameters (Scale of 0.6 : 1)</caption>
+          <caption>Table 2. Dual-arm Leader-Follower DH Parameters (Scale of 0.6:1)</caption>
           <thead>
             <tr><th>i</th><th>θ<sub>i</sub> (°)</th><th>d<sub>i</sub><sup>l</sup> (mm)</th><th>d<sub>i</sub><sup>f</sup> (mm)</th><th>a<sub>i</sub><sup>l</sup> (mm)</th><th>a<sub>i</sub><sup>f</sup> (mm)</th><th>α<sub>i</sub> (°)</th><th>Ratio</th><th>Error (mm)</th><th>Note</th></tr>
           </thead>
@@ -690,8 +740,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
 <div class="band" id="p03">
   <div class="band-in">
     <span class="idx">03</span>
-    <h2>소형 사족보행 로봇 설계</h2>
-    <span class="meta">2023.06 ~ 2024.06</span>
+    <h2>소형 사족보행 로봇 개발</h2>
+    <span class="meta">2023.06 - 2024.06</span>
   </div>
 </div>
 
@@ -706,9 +756,9 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
         <div class="overview">
           <h4 class="sub">Overview</h4>
           <dl>
-            <dt>프로젝트명</dt><dd>소형 사족보행 로봇 설계</dd>
-            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| Robotics Innovatory Lab 학부연구생</span></dd>
-            <dt>작업 기간</dt><dd>2023.06 ~ 2024.06</dd>
+            <dt>프로젝트명</dt><dd>소형 사족보행 로봇 개발</dd>
+            <dt>역할</dt><dd>기구 설계 담당&nbsp;<span>| 팀원 (Robotics Innovatory Lab 학부연구생)</span></dd>
+            <dt>작업 기간</dt><dd>2023.06 - 2024.06</dd>
             <dt>사용 프로그램</dt><dd>Inventor, SolidWorks, Nastran, MATLAB</dd>
           </dl>
         </div>
@@ -716,7 +766,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <h4>Contribution</h4>
           <div class="contrib-body">
             <ul class="pts">
-              <li>소형 사족보행 로봇 설계 <em>– 717.9 × 469.2 × 423.5 mm (L*W*H), 24.6 kg, 2.5 km/h 속도 연속 보행</em></li>
+              <li>소형 사족보행 로봇 설계 <em>– 717.9 mm, 24.6 kg, 5 kg 페이로드 조건에서 2.5 km/h 연속 보행 목표</em></li>
               <li>Bezier 곡선 보행 궤적 기반 목표 스펙 산출 <em>– 모터 선정 및 감속비 결정</em></li>
               <li>QDD 구동기 팩 설계 <em>– 목표 토크 대응 10:1 감속비 1단 유성기어열</em></li>
               <li>상용 로봇 몸통-다리 비율 분석 기반 링크 길이 선정 및 계단 등반 조건 기구학적 검증</li>
@@ -751,7 +801,7 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
           <ul class="pts">
             <li>저감속비 채택으로 역구동성 확보</li>
             <li class="res">전류 기반 토크 추정 및 착지 충격 흡수</li>
-            <li>10:1 1단 유성기어열을 적용한 구동기 <em>(⌀146 × 76.2 mm, 822 g)</em></li>
+            <li>10:1 1단 유성기어열을 적용 구동기 <em>(⌀ 146 × 76.2 mm, 822 g)</em></li>
             <li class="res">Rated Torque / Speed: 30 Nm / 28.27 rad/s</li>
           </ul>
         </div>
@@ -781,7 +831,8 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
             <h5>다리 링크 목표 길이 설정과 최종 제원</h5>
             <ul class="pts">
               <li>계단 등반이 검증된 상용 로봇의 몸통 대비 다리 신장 비율 <em>(평균 0.69)</em> 기반 목표 설정</li>
-              <li>최종 다리 링크 각 250 mm, 가동각 25°~155°, hip 관절 간 거리 513.95 mm</li>
+              <li>최종 다리 링크 각 250 mm, 가동각 25°~155°</li>
+              <li>최종 제원: 717.9 x 469.2 x 423.5 mm (L x W x H), 24.6 kg <em>(설계 페이로드: 5 kg)</em></li>
             </ul>
           </div>
           <div class="block">
@@ -811,7 +862,11 @@ footer a{color:rgba(255,255,255,.82);text-decoration:none}
     <h2>THANK YOU</h2>
     <div class="rule"></div>
     <p>끝까지 봐주셔서 감사합니다.</p>
-    <p class="big">이런 경험을 바탕으로 <b>LIG D&amp;A의 일원</b>으로 <b>안전하고 편리한 미래</b>를 만들어가고 싶습니다.</p>
+    <p class="big">이런 경험을 바탕으로 <b>LIG D&amp;A</b>에서 <b>안전하고 편리한 미래</b>를 만들어가고 싶습니다.</p>
+    <div class="dl">
+      <a href="Resume_SungjunLee.pdf" download>이력서 내려받기</a>
+      <a href="Portfolio_LIG.pdf" download>포트폴리오 내려받기</a>
+    </div>
   </div>
 </section>
 

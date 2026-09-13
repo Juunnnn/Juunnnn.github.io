@@ -5,7 +5,8 @@
 ```
 .
 ├── index.html          # 페이지 전체 (HTML + CSS + JS 한 파일)
-├── Portfolio_LIG.pdf   # 원본 PDF (상단 네비게이션의 PDF 버튼에서 열림)
+├── Portfolio_LIG.pdf       # 포트폴리오 PDF
+├── Resume_SungjunLee.pdf   # 이력서 PDF
 ├── img/                # PDF에서 추출한 이미지 20장
 └── README.md
 ```
@@ -35,6 +36,7 @@
 - 글 내용, 연락처, 링크: `index.html`의 해당 문단을 직접 고치면 됩니다.
 - 색상과 여백: `index.html` 위쪽 `:root` 블록의 값(`--navy`, `--blue`, `--mist` 등)만 바꾸면 전체에 반영됩니다.
 - 이미지 교체: `img/` 안의 같은 이름으로 덮어쓰면 됩니다.
+- 이력서 PDF 교체: 따로 만든 이력서 파일이 있으면 `Resume_SungjunLee.pdf`를 같은 이름으로 덮어쓰면 됩니다. 이름을 바꾸고 싶다면 `index.html`에서 `Resume_SungjunLee.pdf`를 검색해 두 군데(상단 버튼, 마지막 화면 버튼)를 함께 고쳐주세요.
 - 프로젝트 추가: `01`, `02`, `03` 섹션 중 하나를 통째로 복사한 뒤 `id`와 상단 네비게이션 링크를 함께 바꿔주세요.
 
 한글 글꼴은 Pretendard를 CDN에서 불러옵니다. 인터넷이 차단된 환경에서 볼 일이 있다면 글꼴 파일을 받아 저장소에 함께 올리고 `<link>` 주소를 바꾸면 됩니다.
